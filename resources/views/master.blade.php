@@ -17,7 +17,6 @@
 </head>
 <body>
 
-
     @yield('content')
     <div class="container-fluid" >
 
@@ -25,30 +24,24 @@
             <div class="col-sm-6 bg-primary d-flex align-items-center text-white">
                 <p class="lead text-center p-5">•Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum architecto commodi in beatae nam
                 <br>•dolore repellendus, ad reiciendis. Assumenda accusantium mollitia eius quaerat iusto explicabo
-                    reiciendis repellendus</p>
+                    reiciendis repellendus
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab amet, aut cumque cupiditate deleniti dicta distinctio eius enim facere iusto labore laboriosam, natus nihil placeat reiciendis repellendus vel veniam voluptatem!</p>
             </div>
             <div class="col-sm-6 ">
-                <div class="d-flex flex-row-reverse mt-4 m-3">
-                    <form class="form-inline" method="post" action="">
-                        <input name="name" id="name" class="form-control m-2" type="text" placeholder="Nazwa użytkownika">
+                <div class="d-flex flex-row-reverse mt-4 m-5">
 
-                        <input name="password" id="password" class="form-control m-2" type="password" placeholder="Hasło">
+                    @include('auth.login')
 
-                        <input type="submit" class="btn btn-primary " value="Zaloguj">
-                    </form>
                 </div>
                 <div class=" p-5 mt-5 ">
                     <p class="text-center h1 p-5 d-flex align-items-center">Nie posiadasz jeszcze konta ? Zarejestruj sie.</p>
-                    <form method="post" action="" class="form-horizontal ">
+                    @if(Session::get('success'))
+                        <div class="alert alert-success text-center">
+                            {{Session::get('success')}}
+                        </div>
+                    @endif
+                    @include('auth.register')
 
-                        <input name="name" id="name" class="form-control m-2" type="text" placeholder="Nazwa użytkownika">
-
-                        <input name="password" id="password" class="form-control m-2" type="password" placeholder="Hasło">
-
-                        <input name="email" id="email" class="form-control m-2" type="email" placeholder="Email">
-
-                        <input type="submit" class="btn btn-primary mt-2" value="Zarejestruj">
-                    </form>
                 </div>
                 <div class="footer">
                     <ul class="text-muted d-flex align-items-start">
@@ -56,6 +49,7 @@
                         <a class="text-muted m-1" href="">Marka</a>
                         <a class="text-muted m-1" href="">Zasady</a>
                         <a class="text-muted m-1" href="">O nas</a>
+                        <a class="text-muted m-1" href="">Nie pamiętasz hasła ?</a>
                     </ul>
                 </div>
             </div>
