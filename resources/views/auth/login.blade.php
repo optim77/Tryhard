@@ -1,5 +1,7 @@
 
-
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
 
 <form method="POST" class="form-inline" action="{{ route('login') }}">
     @csrf
@@ -7,7 +9,7 @@
     <div class="form-group row">
 
         <div class="col-md-6">
-            <input placeholder="Nazwa użytkownika" id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} m-2" name="email" value="{{ old('email') }}" required autofocus>
+            <input placeholder="Adres e-mail" id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} m-2" name="email" value="{{ old('email') }}" required autofocus>
 
             @if ($errors->has('email'))
                 <span class="invalid-feedback">
@@ -41,7 +43,7 @@
     {{--</div>--}}
 
     <div class="form-group row mb-0">
-        <div class="col-md-4 offset-md-1">
+        <div class="col-md-4 offset-md-2">
             <button type="submit" class="btn btn-primary">
                 Zaloguj
             </button>
@@ -49,3 +51,7 @@
     </div>
 </form>
 
+
+        </div>
+    </div>
+</div>

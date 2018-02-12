@@ -11,11 +11,23 @@
 |
 */
 
+//Widok wejściowy
 Route::get('/', function () {
-    return view('master');
+    return view('layouts.app');
 });
+
+//Widok strony rejestracji
+Route::get('/rejestracja',function (){
+    return view('auth.register');
+})->name('rejestracja');
+
 
 Auth::routes();
 
+Route::group(['middleware' => ['web']], function (){
+
+});
+
+Route::match(['get','post'],'/home','User@index');
 
 Route::resource('user','User');
