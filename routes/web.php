@@ -30,4 +30,6 @@ Route::group(['middleware' => ['web']], function (){
 
 Route::match(['get','post'],'/home','User@index');
 
+Route::match(['get','post'],'/profil','User@profile')->name('userProfile');
+
 Route::resource('user','User');
