@@ -28,7 +28,7 @@ Route::group(['middleware' => ['web']], function (){
 
 });
 
-Route::match(['get','post'],'/home','User@index');
+Route::match(['get','post'],'/home','User@index')->name('home');
 
 Route::match(['get','post'],'/profil','User@profile')->name('userProfile');
 

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-            <p class="d-flex justify-content-center h3">Logo</p>
+            <p class="d-flex justify-content-center h3"><a class="text-white" href="{{route('home')}}" >Logo</a></p>
         </div>
         <div class="col-sm-1">
             <p class="d-flex justify-content-center h5 mt-2"><a class="text-white" href="{{route('userProfile')}}"><i class="fas fa-user"></i></a></p>

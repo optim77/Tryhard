@@ -14,10 +14,10 @@
                 </div>
             </div>
             <div class="col-sm-12 col-lg-8">
+
+
                 <div class=" p-5" style="border-top: solid 5px #007bff">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Adipisci animi cum doloremque eligendi est facilis quasi quos repellat sequi sint.
-                    Amet commodi dicta fugit illo odio perferendis perspiciatis soluta voluptates.
+                    <img class="img-responsive img-rounded w-100" src="https://static.pexels.com/photos/119730/pexels-photo-119730.jpeg">
                     <hr>
                     <div class="row">
                         <div class="col-sm-2">
@@ -52,12 +52,25 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
+
                 <div class=" p-5" style="border-top: solid 5px #007bff">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Adipisci animi cum doloremque eligendi est facilis quasi quos repellat sequi sint.
-                    Amet commodi dicta fugit illo odio perferendis perspiciatis soluta voluptates.
+                    <img class="img-responsive img-rounded w-100" src="https://static.pexels.com/photos/119730/pexels-photo-119730.jpeg">
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="btn-group">
+                                <button class="btn btn-primary mt-2">Like</button>
+                                <button class="btn mt-2">0</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="form-inline mt-2 d-flex justify-content-start">
+                                <textarea class="form-control mr-1 ml-sm-4 ml-lg-0 w-50"rows="1"></textarea>
+                                <input type="button" class="btn btn-primary " value="Wyślij">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
