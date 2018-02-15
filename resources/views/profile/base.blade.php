@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="btn-group">
-                                <button class="btn btn-primary mt-2">Like</button>
+                                <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
                                 <button class="btn mt-2">0</button>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                                 <div class="btn-group">
-                                    <button class="btn btn-primary mt-2">Like</button>
+                                    <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
                                     <button class="btn mt-2">0</button>
                                 </div>
                         </div>
@@ -60,7 +60,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="btn-group">
-                                <button class="btn btn-primary mt-2">Like</button>
+                                <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
                                 <button class="btn mt-2">0</button>
                             </div>
                         </div>
