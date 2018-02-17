@@ -45,3 +45,4 @@ Route::match(['get','post'],'/search/{search?}','User@searchUsers')->name('searc
 
 //UPLOAD FILE
 Route::match(['get','post'],'/upload','User@upload')->name('upload');
+Route::post('/upload/action','User@uploadAction')->name('uploadAction');

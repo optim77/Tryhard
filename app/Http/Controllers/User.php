@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Photos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,12 +24,20 @@ class User extends Controller
         return view('profile.base');
     }
 
+    /*
+     * Display self profile
+     */
     public function profile(){
         $user = \App\User::find(Auth::id());
-        return view('user.main');
+        $photos = Photos::where('author',Auth::id())->get();
+        return view('user.main',['user' => $user,'photos' => $photos]);
 
     }
 
+    /*
+     * Function to search friends
+     * Return array with users
+     */
     public function searchUsers(Request $request){
         $search = $request->get('search');
         if ($search != null){
@@ -38,15 +47,38 @@ class User extends Controller
         return view('search.user');
     }
 
+    /*
+     * Function to displaying upload view
+     * Return upload view
+     */
     public function upload(Request $request){
 
+        if ($request->file('file')){
+            if ($request->file('file')->getClientSize() > 500000){
+                $photo = new Photos();
+                $photo->description = $request->get('description');
+                $photo->author =Auth::id();
+                $name = uniqid(null,true);
+                $guessExtension = $request->file('file')->guessExtension();
+                $photo->slug = $name.'.'.$guessExtension;
+                $photo->save();
+                $request->file('file')->move('files//upload',$name.'.'.$guessExtension);
+                redirect(route('profile'));
+            }else{
 
-        if ($request->file('file') != null){
-            print_r($request->file('file'));
+            }
         }
 
         return view('upload.upload');
     }
+
+    /**
+     * Handling the upload files
+     */
+    public function uploadAction(Request $request){
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
