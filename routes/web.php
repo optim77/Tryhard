@@ -16,6 +16,11 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 
+Route::get('/login', function () {
+
+    return redirect()->route('home');
+});
+
 //Widok strony rejestracji
 Route::get('/rejestracja',function (){
     return view('auth.register');
@@ -33,3 +38,10 @@ Route::match(['get','post'],'/home','User@index')->name('home');
 Route::match(['get','post'],'/profil','User@profile')->name('userProfile');
 
 Route::resource('user','User');
+
+
+//SECTION TO SEARCH
+Route::match(['get','post'],'/search/{search?}','User@searchUsers')->name('search');
+
+//UPLOAD FILE
+Route::match(['get','post'],'/upload','User@upload')->name('upload');

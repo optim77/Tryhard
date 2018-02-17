@@ -8,7 +8,10 @@
             <p class="d-flex justify-content-center h5 mt-2"><a class="text-white" href="{{route('userProfile')}}"><i class="fas fa-user"></i></a></p>
         </div>
         <div class="col-sm-1">
-            <p class="d-flex justify-content-center h5 mt-2">Szukaj</p>
+            <p class="d-flex justify-content-center h5 mt-2"><a class="text-white" href="{{route('upload')}}"><i class="fas fa-upload"></i></a></p>
+        </div>
+        <div class="col-sm-1">
+            <p class="d-flex justify-content-center h5 mt-2"><a class="text-white" href="{{route('search')}}">Szukaj</a></p>
         </div>
         <div class="col-sm-1">
             <p id="profileButton" style="cursor: pointer" class="d-flex justify-content-center h5 mt-2"><i class="fas fa-cog h5"></i></p>

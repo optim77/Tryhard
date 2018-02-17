@@ -29,6 +29,25 @@ class User extends Controller
 
     }
 
+    public function searchUsers(Request $request){
+        $search = $request->get('search');
+        if ($search != null){
+            $result = \App\User::where('name',$search)->orWhere('firstName','like','%'.$search.'%')->orWhere('surname','like','%'.$search.'%')->get();
+            return view('search.user',['users' => $result]);
+        }
+        return view('search.user');
+    }
+
+    public function upload(Request $request){
+
+
+        if ($request->file('file') != null){
+            print_r($request->file('file'));
+        }
+
+        return view('upload.upload');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
