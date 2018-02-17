@@ -1,3 +1,3 @@
 $("#profileButton").click(function () {
-    $("#profileList").toggle();
+    $(".profileList").toggle();
 });
