@@ -16,12 +16,33 @@
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-eye"></i> 32221</p>
                 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
                     @if($friends != null)
-                        <button class="btn btn-danger col-sm-12" id="delete" onclick="deleteFromFriends({{$user->id}})" >Usuń ze znajomych</button>
-                    @else
-                        <button class="btn btn-primary col-sm-12" id="invite" onclick="addToFriends({{$user->id}})" >Zaproś do znajomych</button>
+                        @foreach($friends as $f)
 
+                            @if($f->status == 'accepted')
+                                <div class="row">
+                                    <button class="btn btn-danger col-sm-5 mr-2" id="delete" onclick="deleteFromFriends({{$user->id}})" >Usuń ze znajomych</button>
+                                    <button class="btn btn-danger col-sm-5" id="block" onclick="blockUser({{$user->id}})" >Blokuj</button>
+                                </div>
+
+                            @elseif($f->status == Auth::id())
+                                <button class="btn btn-primary col-sm-12" id="cancel" onclick="cancelInvite({{$user->id}})" >Anuluj zaproszenie do grona znajomych</button>
+                            @elseif($f->status == $user->id)
+                                <button class="btn btn-primary col-sm-12" id="invite" onclick="cancelInvite({{$user->id}})" >Przyjmij zaproszenie do grona znajomych</button>
+                            @elseif(isset($f))
+                        @endif
+
+                            @if($f->status == 'blocked - '.\Illuminate\Support\Facades\Auth::id())
+                                    <button class="btn btn-primary col-sm-12" id="unlock" onclick="unlockUser({{$user->id}})" >Odblokuj użytkownika</button>
+
+                                @elseif($f->status == 'blocked - '.$user->id)
+                                    <button class="btn btn-primary col-sm-12" id="invite" >Zostałeś zablokowany przez tego użytkownika</button>
+
+                                @endif
+
+                        @endforeach
+                    @else
+                        <button class="btn btn-primary col-sm-12" id="invite" onclick="addToFriends({{$user->id}})" >Zaproś do grona znajomych</button>
                     @endif
 
 
@@ -84,20 +105,61 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $.ajax({
                 url: '{{route('AJAXADDTOFRIENDS')}}',
                 type: 'POST',
                 dataType: 'json',
                 data: 'user='+ i,
                 success: function () {
-                    $("#invite").before('<div class="alert alert-success">Wysłano zaproszenie do grona znajomych</div>')
+                    $("#invite").before('<div id="inviteAlert" class="alert alert-success mt-2">Wysłano zaproszenie do grona znajomych</div>').fadeOut('slow');
+                    $("#inviteAlert").fadeOut('slow');
+                    $("#inviteAlert").before('<button class="btn btn-primary col-sm-12" id="invite" onclick="cancelInvite({{$user->id}})" >Anuluj zaproszenie do grona znajomych</button>').fadeIn('slow');
                 }
             });
         }
 
         function deleteFromFriends(i) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('AJAXDELETEFROMFRIENDS')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'user='+ i,
+                success: function () {
+                    $("#delete").before('<div class="alert alert-success">Usunięto z grona znajomych</div>').fadeOut('slow');
+                    $("#delete").before('<button class="btn btn-primary col-sm-12" id="invite" onclick="addToFriends({{$user->id}})" >Zaproś ponownie do znajomych</button>\n');
+                    $("#delete").remove();
+                }
+            });
+        }
 
+
+        function cancelInvite(i) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('AJAXDELETEFROMFRIENDS')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'user='+ i,
+                success: function () {
+                    $("#cancel").before('<div class="alert alert-success">Anulowano zaproszenie</div>').fadeOut('slow');
+                    $("#cancel").before('<button class="btn btn-primary col-sm-12" id="cancel" onclick="addToFriends({{$user->id}})" >Zaproś ponownie do znajomych</button>\n');
+                    $("#cancel").remove();
+                }
+            });
+
+        }
+
+        function blockUser(i) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -105,15 +167,39 @@
             });
 
             $.ajax({
-                url: '{{route('AJAXDELETEFROMFRIENDS')}}',
+                url: '{{route('AJAXBLOCKUSER')}}',
                 type: 'POST',
                 dataType: 'json',
                 data: 'user='+ i,
                 success: function () {
-                    $("#delete").before('<div class="alert alert-success">Usunięto z grona znajomych</div>')
+                    $("#block").before('<div id="hide" class="alert alert-success">Użytkownik został zablokowany</div>');
+                    $("hide").fadeOut('slow');
+                    $("#block").before('<button class="btn btn-primary col-sm-12" id="invite" onclick="unlockUser({{$user->id}})" >Odblokuj użytkownika</button>\n');
+                    $("#block").remove();
+
+                }
+            });
+        }
+
+        function unlockUser(i) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
+            $.ajax({
+                url: '{{route('AJAXUNLOCK')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'user='+ i,
+                success: function () {
+                    $("#unlock").before('<div class="alert alert-success">Użytkownik został odblokowany</div>').fadeOut('slow');
+                    $("#unlock").before('<button class="btn btn-primary col-sm-12" id="block" onclick="blockUser({{$user->id}})" >Zablokuj użytkownika</button>\n');
+                    $("#unlock").remove();
+
+                }
+            });
         }
 
     </script>
