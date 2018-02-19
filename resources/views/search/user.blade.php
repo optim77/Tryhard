@@ -17,11 +17,17 @@
                     <p class="h2 text-center mt-5 mb-5">Wyniki wyszukiwania</p>
                     <div class="col-sm-12">
                         @foreach($users as $u)
-                            <a class="text-dark" href="">
+
+                            <a class="text-dark" href="{{route('getUserProfile',[$u->firstName,$u->surname,$u->id])}}">
                                 <div class="col-sm-4">
                                     <div class="card">
                                         <img class="w-100" src="https://static.pexels.com/photos/572937/pexels-photo-572937.jpeg">
-                                        <div class="card-body">{{$u->firstName}} {{$u->surname}}</div>
+                                        <div class="card-body h5">
+                                            {{$u->firstName}} {{$u->surname}}
+                                            <br>
+                                            <button class="btn btn-primary mt-2">Dodaj</button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </a>

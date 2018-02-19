@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Friends;
 use App\Photos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,7 @@ class User extends Controller
     public function searchUsers(Request $request){
         $search = $request->get('search');
         if ($search != null){
-            $result = \App\User::where('name',$search)->orWhere('firstName','like','%'.$search.'%')->orWhere('surname','like','%'.$search.'%')->get();
+            $result = \App\User::where('firstName','like','%'.$search.'%')->orWhere('surname','like','%'.$search.'%')->get()->all();
             return view('search.user',['users' => $result]);
         }
         return view('search.user');
@@ -54,7 +55,7 @@ class User extends Controller
     public function upload(Request $request){
 
         if ($request->file('file')){
-            if ($request->file('file')->getClientSize() > 500000){
+            if ($request->file('file')->getClientSize() < 500000){
                 $photo = new Photos();
                 $photo->description = $request->get('description');
                 $photo->author =Auth::id();
@@ -63,14 +64,26 @@ class User extends Controller
                 $photo->slug = $name.'.'.$guessExtension;
                 $photo->save();
                 $request->file('file')->move('files//upload',$name.'.'.$guessExtension);
-                redirect(route('profile'));
+                redirect(route('userProfile'));
             }else{
-
+                return redirect()->back()->withErrors(['Plik jest zbut duży', 'Plik jest zbut duży']);
             }
         }
 
         return view('upload.upload');
     }
+
+    /*
+     * Load profile with id, name and surname of user
+     * Return data of user
+     */
+    public function getUser($name,$surname,$id){
+        $user = \App\User::find($id);
+        $photos = Photos::where('author',$id)->get()->all();
+        $friends = Friends::where('user_id1',$id)->where('user_id2',Auth::id())->orWhere('user_id1',Auth::id())->where('user_id2',$id)->get()->all();
+        return view('profile.other',['user' => $user, 'photos' => $photos,'friends' => $friends]);
+    }
+
 
     /**
      * Handling the upload files

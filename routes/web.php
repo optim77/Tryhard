@@ -11,7 +11,7 @@
 |
 */
 
-//Widok wejściowy
+//FRONT VIEW
 Route::get('/', function () {
     return view('layouts.app');
 });
@@ -21,7 +21,7 @@ Route::get('/login', function () {
     return redirect()->route('home');
 });
 
-//Widok strony rejestracji
+//REGISTER VIEW
 Route::get('/rejestracja',function (){
     return view('auth.register');
 })->name('rejestracja');
@@ -43,6 +43,15 @@ Route::resource('user','User');
 //SECTION TO SEARCH
 Route::match(['get','post'],'/search/{search?}','User@searchUsers')->name('search');
 
+//SHOW OTHER PERSON PROFILE
+Route::match(['get','post'],'/profile/{name}-{surname}-{id}','User@getUser')->name('getUserProfile');
+
 //UPLOAD FILE
 Route::match(['get','post'],'/upload','User@upload')->name('upload');
 Route::post('/upload/action','User@uploadAction')->name('uploadAction');
+
+//AJAX RESOURCES
+Route::post('/ajax/addToFriends','AjaxController@addToFriends')->name('AJAXADDTOFRIENDS');
+
+Route::post('/ajax/deleteFromFriends','AjaxController@deleteFromFriends')->name('AJAXDELETEFROMFRIENDS');
+

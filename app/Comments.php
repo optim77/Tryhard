@@ -14,4 +14,8 @@ class Comments extends Model
     public function photos(){
         return $this->belongsTo('App\Photos');
     }
+
+    public function users(){
+        return $this->belongsTo('App\User');
+    }
 }

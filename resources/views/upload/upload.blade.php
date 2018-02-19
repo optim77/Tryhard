@@ -6,6 +6,9 @@
 
     <div class="container">
         <p class="text-center h3 mt-5 mb-5">Wgraj zdjęcie</p>
+        @if($errors->any())
+            <h5 class="alert alert-danger">{{$errors->first()}}</h5>
+        @endif
         <form class="form-horizontal" action="{{route('upload')}}" method="post" enctype="multipart/form-data">
             @csrf
             <label for="file">Wybierz plik:</label>
@@ -38,15 +41,15 @@
             files = event.target.files;
 
             if (files[0].size > 500000){
-                $("#file").before('<div class="alert alert-danger">Plik jest zbyt duży</div>');
+                $("#file").before('<div class="h5 alert alert-danger">Plik jest zbyt duży</div>');
 
             }
 
-            let ext = ['image/jpega','image/jpga'];
+            let ext = ['image/jpeg','image/jpg'];
             extension = files[0].type;
 
             if ($.inArray(extension,ext) == -1){
-                $("#file").before('<div class="alert alert-danger">Zły format pliku</div>');
+                $("#file").before('<div class="h5 alert alert-danger">Zły format pliku</div>');
 
             }
         }

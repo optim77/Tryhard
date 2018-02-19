@@ -14,6 +14,7 @@
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-users"></i> 566</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-star"></i> 4123</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-eye"></i> 32221</p>
+                <a class="btn btn-primary col-sm-12" href="">Edytuj profil</a>
             </div>
         </div>
         <div class="row">
@@ -24,32 +25,43 @@
         </div>
 
 
-
         <div class="row mt-3 d-flex text-center">
-
-
             @foreach($photos as $p)
-                {{print_r($p->comments->id)}}
+
                 <div class="col-sm-12 mt-5" >
-                    <img class="img-responsive img-rounded w-75 card-img-top" src="files/upload/{{$p->slug}}">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="btn-group">
-                                <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
-                                <button class="btn mt-2">0</button>
+                    <img class="img-responsive img-rounded w-50 card-img-top" src="files/upload/{{$p->slug}}">
+
+                    <p class="h5 text-center w-50 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
+
+                    <div class="jumbotron w-50 mt-3" style="margin-left: auto;margin-right: auto">
+                        @foreach($p->comments as $c)
+                            <div class="rounded pl-1 mt-2  w-100">
+                                <div class="text-left h5">
+                                    <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">
+                                    {{$c->author}}
+                                </div>
+                                <p class="text-left">{{$c->content}}</p>
+                                <hr>
                             </div>
-                        </div>
-                        <div class="col-sm-2 d-flex justify-content-start">
-                            <div class="btn-group">
-                                <button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
-                                <button class="btn mt-2">0</button>
+
+                        @endforeach
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+                                        <button class="btn mt-2">0</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 d-flex justify-content-start">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
+                                        <button class="btn mt-2">0</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
                 @endforeach
-
         </div>
     </div>
 
