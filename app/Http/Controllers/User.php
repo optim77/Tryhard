@@ -85,6 +85,12 @@ class User extends Controller
     }
 
 
+    public function notification(){
+        $notifications = Friends::where('user_id1',Auth::id())->where('status','!=','accepted')->get()->all();
+        return view('notifications.main',['notice' => $notifications]);
+    }
+
+
     /**
      * Handling the upload files
      */

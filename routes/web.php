@@ -39,6 +39,8 @@ Route::match(['get','post'],'/profil','User@profile')->name('userProfile');
 
 Route::resource('user','User');
 
+//NOTIFICATIONS PAGE
+Route::get('/powiadomienia','User@notification')->name('notification');
 
 //SECTION TO SEARCH
 Route::match(['get','post'],'/search/{search?}','User@searchUsers')->name('search');
