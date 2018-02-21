@@ -6,6 +6,7 @@ use App\Friends;
 use App\Photos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class User extends Controller
 {
@@ -86,7 +87,10 @@ class User extends Controller
 
 
     public function notification(){
-        $notifications = Friends::where('user_id1',Auth::id())->where('status','!=','accepted')->get()->all();
+        $notifications = DB::table('friends')
+            ->join('users','friends.user_id2','=','users.id')
+            ->select('friends.*','users.*')->where('user_id1',Auth::id())->get()->all();
+
         return view('notifications.main',['notice' => $notifications]);
     }
 

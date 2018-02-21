@@ -27,6 +27,17 @@ class AjaxController
         $user = $request->get('user');
         $id = Auth::id();
         $invite = Friends::insert(['user_id1' => $id,'user_id2' => $user,'status' => $id]);
+        $invite = Friends::insert(['user_id1' => $user,'user_id2' => $id,'status' => $id]);
+        $response = array('code' => 100,'success' => true);
+        return new JsonResponse($response);
+    }
+
+    public function acceptInvite(Request $request){
+
+        $user = $request->get('user');
+        $id = Auth::id();
+        $acp = Friends::where(['user_id1' => $id,'user_id2' => $user])->update(['status' => 'accepted']);
+        $acp2 = Friends::where(['user_id1' => $user,'user_id2' => $id])->update(['status' => 'accepted']);
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
     }
@@ -34,7 +45,8 @@ class AjaxController
     public function cancelInvite(Request $request){
         $user = $request->get('user');
         $id = Auth::id();
-        $delete = Friends::where('user_id1',$id)->where('user_id2',$user)->orWhere('user_id1',$user)->where('user_id2',$id)->delete();
+        $delete = Friends::where('user_id1',$id)->where('user_id2',$user)->delete();
+        $delete = Friends::where('user_id1',$user)->where('user_id2',$id)->delete();
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
     }
@@ -47,7 +59,8 @@ class AjaxController
     public function deleteFromFriends(Request $request){
         $user = $request->get('user');
         $id = Auth::id();
-        $delete = Friends::where('user_id1',$id)->where('user_id2',$user)->orWhere('user_id1',$user)->where('user_id2',$id)->delete();
+        $delete = Friends::where('user_id1',$id)->where('user_id2',$user)->delete();
+        $delete = Friends::where('user_id1',$user)->where('user_id2',$id)->delete();
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
 
@@ -61,7 +74,8 @@ class AjaxController
     public function blockUser(Request $request){
         $user = $request->get('user');
         $id = Auth::id();
-        $cancel = Friends::where('user_id1',$id)->where('user_id2',$user)->orWhere('user_id1',$user)->where('user_id2',$id)->update(['status' => 'blocked - '.$id]);
+        $block = Friends::where('user_id1',$id)->where('user_id2',$user)->delete()->update(['status' => 'blocked - '.$id]);
+        $block = Friends::where('user_id1',$user)->where('user_id2',$id)->delete()->update(['status' => 'blocked - '.$id]);
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
     }
@@ -69,7 +83,8 @@ class AjaxController
     public function unlockFriends(Request $request){
         $user = $request->get('user');
         $id = Auth::id();
-        $cancel = Friends::where('user_id1',$id)->where('user_id2',$user)->orWhere('user_id1',$user)->where('user_id2',$id)->update(['status' => 'accepted']);
+        $unlock = Friends::where('user_id1',$id)->where('user_id2',$user)->delete()->update(['status' => 'accepted']);
+        $unlock = Friends::where('user_id1',$id)->where('user_id2',$user)->delete()->update(['status' => 'accepted']);
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
     }

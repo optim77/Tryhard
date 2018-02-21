@@ -54,6 +54,7 @@ Route::post('/upload/action','User@uploadAction')->name('uploadAction');
 
 //AJAX RESOURCES
 Route::post('/ajax/addToFriends','AjaxController@addToFriends')->name('AJAXADDTOFRIENDS');
+Route::post('/ajax/accept','AjaxController@acceptInvite')->name('AJAXACCEPTINVITE');
 Route::post('/ajax/deleteFromFriends','AjaxController@deleteFromFriends')->name('AJAXDELETEFROMFRIENDS');
 Route::post('/ajax/blockFriends','AjaxController@blockUser')->name('AJAXBLOCKUSER');
 Route::post('/ajax/unlockFriends','AjaxController@unlockFriends')->name('AJAXUNLOCK');
