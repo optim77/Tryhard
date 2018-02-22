@@ -59,3 +59,5 @@ Route::post('/ajax/deleteFromFriends','AjaxController@deleteFromFriends')->name(
 Route::post('/ajax/blockFriends','AjaxController@blockUser')->name('AJAXBLOCKUSER');
 Route::post('/ajax/unlockFriends','AjaxController@unlockFriends')->name('AJAXUNLOCK');
 
+//SHOW FRIENDS PAGE
+Route::get('/znajomi','User@getFriends')->name('getFriends');

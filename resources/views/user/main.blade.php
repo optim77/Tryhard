@@ -19,13 +19,14 @@
         </div>
         <div class="row">
             <div class="col-sm-12 btn-group mt-3">
-                <button class="btn btn-primary w-100">Znajomi</button>
+                <meta name="csrf-token" content="{{ csrf_token() }}">
+                <a href="{{route('getFriends')}}" class="btn btn-primary w-100">Znajomi</a>
                 <button class="btn btn-primary w-100">Powiadomienia</button>
             </div>
         </div>
 
 
-        <div class="row mt-3 d-flex text-center">
+        <div id="profileContent" class="row mt-3 d-flex text-center">
             @foreach($photos as $p)
 
                 <div class="col-sm-12 mt-5" >

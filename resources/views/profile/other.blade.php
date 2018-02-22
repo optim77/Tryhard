@@ -23,21 +23,24 @@
                                 <div class="row">
                                     <button class="btn btn-danger col-sm-5 mr-2" id="delete" onclick="deleteFromFriends({{$user->id}})" >Usuń ze znajomych</button>
                                     <button class="btn btn-danger col-sm-5" id="block" onclick="blockUser({{$user->id}})" >Blokuj</button>
-                                </div>
 
+                                </div>
+                            @break
                             @elseif($f->status == Auth::id())
                                 <button class="btn btn-primary col-sm-12" id="cancel" onclick="cancelInvite({{$user->id}})" >Anuluj zaproszenie do grona znajomych</button>
+                            @break
                             @elseif($f->status == $user->id)
                                 <button class="btn btn-primary col-sm-12" id="invite" onclick="cancelInvite({{$user->id}})" >Przyjmij zaproszenie do grona znajomych</button>
+                            @break
                             @elseif(isset($f))
                         @endif
 
                             @if($f->status == 'blocked - '.\Illuminate\Support\Facades\Auth::id())
                                     <button class="btn btn-primary col-sm-12" id="unlock" onclick="unlockUser({{$user->id}})" >Odblokuj użytkownika</button>
-
+                                    @break
                                 @elseif($f->status == 'blocked - '.$user->id)
                                     <button class="btn btn-primary col-sm-12" id="invite" >Zostałeś zablokowany przez tego użytkownika</button>
-
+                                    @break
                                 @endif
 
                         @endforeach

@@ -94,6 +94,15 @@ class User extends Controller
         return view('notifications.main',['notice' => $notifications]);
     }
 
+    public function getFriends(){
+        $friends = DB::table('friends')
+            ->join('users','friends.user_id2','=','users.id')
+            ->select('friends.*','users.*')->where('user_id1',Auth::id())->get()->all();
+        //$friends = Friends::where('user_id1',Auth::id())->get()->all();
+
+        return view('profile.friends',['friends' => $friends]);
+    }
+
 
     /**
      * Handling the upload files
