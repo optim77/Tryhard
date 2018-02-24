@@ -80,7 +80,7 @@ class User extends Controller
      */
     public function getUser($name,$surname,$id){
         $user = \App\User::find($id);
-        $photos = Photos::where('author',$id)->get()->all();
+        $photos = Photos::with('comments')->where('author',$id)->get()->all();
 //        $photos = DB::table('photos')
 //            ->join('comments','photos.id','=','comments.photos_id')
 //            ->join('users','photos.author','=','users.id')

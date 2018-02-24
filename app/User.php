@@ -28,8 +28,12 @@ class User extends Authenticatable
     ];
 
 
+    public function photos(){
+        return $this->hasMany(Photos::class);
+    }
+
     public function comments(){
-        return $this->hasMany(Comments::class,'id');
+        return $this->hasMany(Comments::class);
     }
 
     public function friends()

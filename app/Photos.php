@@ -13,4 +13,8 @@ class Photos extends Model
     public function comments(){
         return $this->hasMany('App\Comments');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

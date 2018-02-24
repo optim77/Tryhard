@@ -105,6 +105,11 @@ class AjaxController
         return new JsonResponse($response);
     }
 
+    /*
+     * Function to use with ajax
+     * It is adding new comment to photo with such id
+     * Return response in JSON
+     */
     public function commentAction(Request $request){
         $target = $request->get('target');
         $content = $request->get('content');
@@ -116,7 +121,15 @@ class AjaxController
         $comment->save();
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
+    }
 
+    public function setProfileImage(Request $request){
+        $photo = $request->get('photo');
+        $photo = explode('/',$photo);
+        $result = end($photo);
+        $switch = \App\User::where('id',Auth::id())->update(['mainPhoto' => $result]);
+        $response = array('code' => 100,'success' => true);
+        return new JsonResponse($response);
     }
 
 }

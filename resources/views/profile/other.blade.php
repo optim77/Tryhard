@@ -69,18 +69,43 @@
                 <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
 
                 <div class="jumbotron w-25 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
+                    <div id="current-comment"></div>
+                    <?php $i = 0; ?>
                     @foreach($p->comments as $c)
+                        <?php $i++ ?>
+                        @if($i <= 2)
                         <div class="rounded pl-1 mt-2  w-100">
                             <div class="text-left h5">
                                 <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">
-                                {{$c->uthor}}
+                                {{$c->author}}
                             </div>
                             <p class="text-left">{{$c->content}}</p>
+                            <p class="text-muted d-flex justify-content-end align-text-top">{{$c->created_at}}</p>
                             <hr>
                         </div>
+                            @else
 
+
+                                <div class="rounded pl-1 mt-2 more  w-100" style="display: none">
+                                    <div class="text-left h5">
+                                        <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">
+                                        {{$c->author}}
+                                    </div>
+                                    <p class="text-left">{{$c->content}}</p>
+                                    <p class="text-muted d-flex justify-content-end align-text-top">{{$c->created_at}}</p>
+                                    <hr>
+                                </div>
+
+                                <?php $flag = 'hide' ?>
+
+                            @endif
                     @endforeach
-                    <div id="current-comment"></div>
+                        @if(isset($flag) && $flag != null)
+                            <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
+                        @endif
+
+
+
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="btn-group">
@@ -213,25 +238,35 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            content = c;
-            $.ajax({
-                url: '{{route('AJAXCOMMENT')}}',
-                type: 'POST',
-                dataType: 'json',
-                data: 'target='+ i + '&content=' + content,
-                success: function () {
-                    $("#current-comment").append(
-                        '<div class="rounded pl-1 mt-2  w-100">\n' +
-                        '                            <div class="text-left h5">\n' +
-                        '                                <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">\n' +
-                        '                                '+c+'\n' +
-                        '                            </div>\n' +
-                        '                            <p class="text-left">'+c+'</p>\n' +
-                        '                            <hr>\n' +
-                        '                        </div>'
-                    )
+            if(c.length == 0){
+                $("#current-comment").append("<div class='alert alert-danger'>Uzupełnij pole tekstowe</div>");
+            }else {
+                content = c;
+                $.ajax({
+                    url: '{{route('AJAXCOMMENT')}}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: 'target=' + i + '&content=' + content,
+                    success: function () {
+                        $("#current-comment").append(
+                            '<div class="rounded pl-1 mt-2  w-100">\n' +
+                            '                            <div class="text-left h5">\n' +
+                            '                                <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">\n' +
+                            '                                ' + c + '\n' +
+                            '                            </div>\n' +
+                            '                            <p class="text-left">' + c + '</p>\n' +
+                            '                            <hr>\n' +
+                            '                        </div>'
+                        )
 
-                }
+                    }
+                });
+            }
+        }
+
+        function showMore() {
+            $(".more").fadeToggle('slow','swing',function () {
+                $("#showMoreBtn").html('Pokaż mniej')
             });
         }
 
