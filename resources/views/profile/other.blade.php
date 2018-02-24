@@ -68,18 +68,19 @@
 
                 <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
 
-                <div class="jumbotron w-25 mt-3" style="margin-left: auto;margin-right: auto">
+                <div class="jumbotron w-25 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
                     @foreach($p->comments as $c)
                         <div class="rounded pl-1 mt-2  w-100">
                             <div class="text-left h5">
                                 <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">
-                                {{$c->author}}
+                                {{$c->uthor}}
                             </div>
                             <p class="text-left">{{$c->content}}</p>
                             <hr>
                         </div>
 
                     @endforeach
+                    <div id="current-comment"></div>
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="btn-group">
@@ -91,6 +92,12 @@
                             <div class="btn-group">
                                 <button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
                                 <button class="btn mt-2">0</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-inline mt-5 d-flex justify-content-start">
+                                <textarea id="commentContext" class="form-control mr-1 ml-sm-12 ml-lg-0 w-100"rows="1"></textarea>
+                                <input onclick="comment({{$p->id}},$(this).prev('#commentContext').val())" type="button" class="btn btn-primary mt-2" value="Wyślij">
                             </div>
                         </div>
                     </div>
@@ -120,7 +127,6 @@
                 }
             });
         }
-
         function deleteFromFriends(i) {
             $.ajaxSetup({
                 headers: {
@@ -139,8 +145,6 @@
                 }
             });
         }
-
-
         function cancelInvite(i) {
 
             $.ajaxSetup({
@@ -161,7 +165,6 @@
             });
 
         }
-
         function blockUser(i) {
             $.ajaxSetup({
                 headers: {
@@ -183,7 +186,6 @@
                 }
             });
         }
-
         function unlockUser(i) {
             $.ajaxSetup({
                 headers: {
@@ -204,6 +206,36 @@
                 }
             });
         }
+
+        function comment(i,c) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            content = c;
+            $.ajax({
+                url: '{{route('AJAXCOMMENT')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'target='+ i + '&content=' + content,
+                success: function () {
+                    $("#current-comment").append(
+                        '<div class="rounded pl-1 mt-2  w-100">\n' +
+                        '                            <div class="text-left h5">\n' +
+                        '                                <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">\n' +
+                        '                                '+c+'\n' +
+                        '                            </div>\n' +
+                        '                            <p class="text-left">'+c+'</p>\n' +
+                        '                            <hr>\n' +
+                        '                        </div>'
+                    )
+
+                }
+            });
+        }
+
+
 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

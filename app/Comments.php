@@ -15,7 +15,7 @@ class Comments extends Model
         return $this->belongsTo('App\Photos');
     }
 
-    public function users(){
-        return $this->belongsTo('App\User');
+    public function user(){
+        return $this->belongsTo(User::class,'id');
     }
 }

@@ -67,7 +67,7 @@ class User extends Controller
                 $request->file('file')->move('files//upload',$name.'.'.$guessExtension);
                 redirect(route('userProfile'));
             }else{
-                return redirect()->back()->withErrors(['Plik jest zbut duży', 'Plik jest zbut duży']);
+                return redirect()->back()->withErrors(['Plik jest zbyt duży', 'Plik jest zbyt duży']);
             }
         }
 
@@ -81,6 +81,12 @@ class User extends Controller
     public function getUser($name,$surname,$id){
         $user = \App\User::find($id);
         $photos = Photos::where('author',$id)->get()->all();
+//        $photos = DB::table('photos')
+//            ->join('comments','photos.id','=','comments.photos_id')
+//            ->join('users','photos.author','=','users.id')
+//            ->select('comments.*','users.firstName','users.surname','users.mainPhoto','photos.*')
+//            ->where('photos.author',$id)->get()->all();
+//        dump($photos);
         $friends = Friends::where('user_id1',$id)->where('user_id2',Auth::id())->orWhere('user_id1',Auth::id())->where('user_id2',$id)->get()->all();
         return view('profile.other',['user' => $user, 'photos' => $photos,'friends' => $friends]);
     }
@@ -94,12 +100,10 @@ class User extends Controller
         return view('notifications.main',['notice' => $notifications]);
     }
 
-    public function getFriends(){
+    public function getFriends($friends = null){
         $friends = DB::table('friends')
             ->join('users','friends.user_id2','=','users.id')
             ->select('friends.*','users.*')->where('user_id1',Auth::id())->get()->all();
-        //$friends = Friends::where('user_id1',Auth::id())->get()->all();
-
         return view('profile.friends',['friends' => $friends]);
     }
 

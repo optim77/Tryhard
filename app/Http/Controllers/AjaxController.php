@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Comments;
 use App\Friends;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,6 +33,11 @@ class AjaxController
         return new JsonResponse($response);
     }
 
+    /*
+     * Function to use with ajax
+     * It is set the accepted status on user in database
+     * Return response in JSON
+     */
     public function acceptInvite(Request $request){
 
         $user = $request->get('user');
@@ -42,6 +48,11 @@ class AjaxController
         return new JsonResponse($response);
     }
 
+    /*
+     * Function to use with ajax
+     * It is cancel invite to friends on user in database
+     * Return response in JSON
+     */
     public function cancelInvite(Request $request){
         $user = $request->get('user');
         $id = Auth::id();
@@ -80,6 +91,11 @@ class AjaxController
         return new JsonResponse($response);
     }
 
+    /*
+     * Function to use with ajax
+     * It is set unlock status on user in database
+     * Return response in JSON
+     */
     public function unlockFriends(Request $request){
         $user = $request->get('user');
         $id = Auth::id();
@@ -89,5 +105,18 @@ class AjaxController
         return new JsonResponse($response);
     }
 
+    public function commentAction(Request $request){
+        $target = $request->get('target');
+        $content = $request->get('content');
+        $id = Auth::id();
+        $comment = new Comments();
+        $comment->author = $id;
+        $comment->photos_id = $target;
+        $comment->content = $content;
+        $comment->save();
+        $response = array('code' => 100,'success' => true);
+        return new JsonResponse($response);
+
+    }
 
 }

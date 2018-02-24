@@ -59,6 +59,12 @@
                                         <button class="btn mt-2">0</button>
                                     </div>
                                 </div>
+                                <div class="col-sm-12">
+                                    <div class="form-inline mt-5 d-flex justify-content-start">
+                                        <textarea class="form-control mr-1 ml-sm-12 ml-lg-0 w-100"rows="1"></textarea>
+                                        <input type="button" class="btn btn-primary mt-2" value="Wyślij">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
