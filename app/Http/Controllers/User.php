@@ -23,7 +23,7 @@ class User extends Controller
      */
     public function index()
     {
-        return view('profile.base');
+        return view('profile.base',['user' => Auth::user()]);
     }
 
     /*
@@ -79,16 +79,21 @@ class User extends Controller
      * Return data of user
      */
     public function getUser($name,$surname,$id){
-        $user = \App\User::find($id);
-        $photos = Photos::with('comments')->where('author',$id)->get()->all();
+        if($id == Auth::id()){
+            return redirect(route('userProfile'));
+        }else{
+            $user = \App\User::find($id);
+            $photos = Photos::with('comments')->where('author',$id)->get()->all();
 //        $photos = DB::table('photos')
 //            ->join('comments','photos.id','=','comments.photos_id')
 //            ->join('users','photos.author','=','users.id')
 //            ->select('comments.*','users.firstName','users.surname','users.mainPhoto','photos.*')
 //            ->where('photos.author',$id)->get()->all();
 //        dump($photos);
-        $friends = Friends::where('user_id1',$id)->where('user_id2',Auth::id())->orWhere('user_id1',Auth::id())->where('user_id2',$id)->get()->all();
-        return view('profile.other',['user' => $user, 'photos' => $photos,'friends' => $friends]);
+            $friends = Friends::where('user_id1',$id)->where('user_id2',Auth::id())->orWhere('user_id1',Auth::id())->where('user_id2',$id)->get()->all();
+            return view('profile.other',['user' => $user, 'photos' => $photos,'friends' => $friends]);
+        }
+
     }
 
 

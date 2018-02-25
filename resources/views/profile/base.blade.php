@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-sm-12 col-lg-2">
                 <div class="card" style="">
-                    <img class="img-responsive img-rounded w-100 card-img-top" src="https://static.pexels.com/photos/129459/pexels-photo-129459.jpeg">
-                    <p class="mt-2 p-1"><a href="">Lorem ipsum</a></p>
+                    <img class="img-responsive img-rounded w-100 card-img-top" src="files/upload/{{$user->mainPhoto}}">
+                    <p class="mt-2 p-1 text-center"><a class="h5 text-primary" href="{{route('getUserProfile',[$user->firstName,$user->surname,$user->id])}}">{{$user->firstName}} {{$user->surname}}</a></p>
                     <p class="p-1">Lorem ipsum</p>
                 </div>
                 <p class="ml-2 mt-2">Lorem ipsum</p>
