@@ -8,7 +8,8 @@
                     <p class="mt-2 p-1 text-center"><a class="h5 text-primary" href="{{route('getUserProfile',[$user->firstName,$user->surname,$user->id])}}">{{$user->firstName}} {{$user->surname}}</a></p>
 
                 </div>
-                <p class="ml-2 mt-2">Losuj znajomych</p>
+                <a href="{{route('rollerPage')}}" class="ml-1 mt-2 text-dark text-left h5">Losuj znajomych</a>
+                <a href="{{route('upload')}}" class="ml-1 mt-2 text-dark text-left h5">Wgraj zdjecie</a>
             </div>
             <div class="col-sm-12 col-lg-8">
 

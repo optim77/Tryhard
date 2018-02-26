@@ -66,3 +66,6 @@ Route::post('/ajax/setProfileImage','AjaxController@setProfileImage')->name('AJA
 
 //SHOW FRIENDS PAGE
 Route::get('/znajomi','User@getFriends')->name('getFriends');
+
+//SHOW ROLLER PAGE
+Route::match(['get','post'],'/losuj','RollerController@roller')->name('rollerPage');
