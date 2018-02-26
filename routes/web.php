@@ -34,8 +34,11 @@ Route::group(['middleware' => ['web']], function (){
 });
 
 Route::match(['get','post'],'/home','User@index')->name('home');
-
+//SELF PROFILE
 Route::match(['get','post'],'/profil','User@profile')->name('userProfile');
+
+//SETTINGS TO SELF PROFILE
+Route::match(['get','post'],'/ustawienia','User@settings')->name('profileSettings');
 
 Route::resource('user','User');
 

@@ -1,6 +1,5 @@
 @extends('master')
 
-@include('components.topBar')
 
 @section('content')
 

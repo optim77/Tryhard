@@ -1,8 +1,5 @@
 @extends('master')
 @section('content')
-
-    @include('components.topBar')
-
     <div class="container">
         <div class="row">
             <div class="col-sm-12">

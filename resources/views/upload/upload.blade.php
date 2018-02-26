@@ -2,7 +2,6 @@
 @section('content')
 
 
-    @include('components.topBar')
 
     <div class="container">
         <p class="text-center h3 mt-5 mb-5">Wgraj zdjęcie</p>

@@ -15,9 +15,15 @@
         <div class="">
             <p id="profileButton" style="cursor: pointer" class="d-flex justify-content-center h5 mt-2"><i class="fas fa-cog h5"></i></p>
             <ul id="profileList"  class="d-flex justify-content-center text-dark list-group text-center">
-                <a href="" style="display: none" class="list-group-item profileList">Ustawienia</a>
-                <a href="" style="display: none" class="list-group-item profileList">Wyloguj</a>
+                <a href="{{route('profileSettings')}}" style="display: none" class="list-group-item profileList">Ustawienia</a>
+                <a href="{{route('logout')}}" style="display: none" class="list-group-item profileList">Wyloguj</a>
             </ul>
         </div>
     </div>
 </div>
+
+<script>
+    $("#profileButton").click(function () {
+        $(".profileList").toggle();
+    })
+</script>

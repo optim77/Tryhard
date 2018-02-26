@@ -16,6 +16,11 @@
     <title>Document</title>
 </head>
 <body>
+    @if(\Illuminate\Support\Facades\Auth::id())
+
+        @include('components.topBar')
+
+    @endif
 
     @yield('content')
 

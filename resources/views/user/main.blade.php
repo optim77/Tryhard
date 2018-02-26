@@ -1,20 +1,21 @@
 @extends('master')
 @section('content')
 
-    @include('components.topBar')
 
     <div class="container mt-5">
         <div class="row table-bordered p-3 radius">
             <div class="col-sm-3">
-                <img class="img-responsive img-rounded w-100 card-img-top" src="files/upload/{{$user->mainPhoto}}">
+                <img class="img-responsive img-rounded w-100 card-img-top" src="files/upload/{{$user->mainPhoto}}" alt="<img src=''>">
             </div>
             <div class="col-sm-9">
+                <div class="d-flex flex-row-reverse">
+                    <a class="btn btn-primary " href="{{route('profileSettings')}}"><i class="fas fa-wrench"></i></a>
+                </div>
                 <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  {{$user->firstName}} {{$user->surname}}</p>
                 <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  Pseudonim</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-users"></i> 566</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-star"></i> 4123</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-eye"></i> 32221</p>
-                <a class="btn btn-primary col-sm-12" href="">Edytuj profil</a>
             </div>
         </div>
         <div class="row">
@@ -67,7 +68,7 @@
 
                             @endif
                         @endforeach
-                        @if(isset($flag) && $flag != null)
+                        @if(isset($flag) && $flag != null && $flag == 'hide')
                             <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
                         @endif
 

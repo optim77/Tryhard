@@ -1,8 +1,5 @@
 @extends('master')
 @section('content')
-
-    @include('components.topBar')
-
     <div class="container mt-5">
         <div class="row table-bordered p-3 radius">
             <div class="col-sm-3">

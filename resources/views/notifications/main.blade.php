@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('components.topBar')
-
     <div class="container mt-5">
         <div class="row">
         @foreach($notice as $n)

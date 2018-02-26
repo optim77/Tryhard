@@ -112,6 +112,28 @@ class User extends Controller
         return view('profile.friends',['friends' => $friends]);
     }
 
+    public function settings(Request $request){
+
+        if($request->get('firstName') != null){
+            $user = Auth::user();
+            $user->firstName = $request->get('firstName');
+            $user->save();
+            return redirect(route('userProfile'));
+        }
+        if($request->get('surname') != null){
+            $user = Auth::user();
+            $user->surname = $request->get('surname');
+            $user->save();
+            return redirect(route('userProfile'));
+        }
+        if($request->get('birthday') != null){
+            $user = Auth::user();
+            $user->birthday = $request->get('birthday');
+            $user->save();
+            return redirect(route('userProfile'));
+        }
+        return view('user.settings');
+    }
 
     /**
      * Handling the upload files
