@@ -40,4 +40,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Friends::class, 'user_id1');
     }
+
+    public function visitors(){
+        return $this->hasMany(Visitors::class,'user');
+    }
 }
