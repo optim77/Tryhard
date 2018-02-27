@@ -126,6 +126,12 @@ class User extends Controller
             $user->save();
             return redirect(route('userProfile'));
         }
+        if($request->get('sex') != null){
+            $user = Auth::user();
+            $user->sex = $request->get('sex');
+            $user->save();
+            return redirect(route('userProfile'));
+        }
         if($request->get('birthday') != null){
             $user = Auth::user();
             $user->birthday = $request->get('birthday');

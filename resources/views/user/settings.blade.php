@@ -10,6 +10,12 @@
                         <p class="text-center h1"><i class="fas fa-address-card"></i></p>
                         <input type="text" name="firstName" id="firstName" class="form-control mb-3" placeholder="Imie">
                         <input type="text" name="surname" id="surname" class="form-control" placeholder="Nazwisko">
+                        <label class="table-bordered p-3 mt-2" for="women">Kobieta
+                            <input id="women" type="radio" value="women" class="form-control" name="sex"></label>
+
+                        <label class="table-bordered p-3 mt-2" for="men">Meżczyzna
+                            <input id="men" type="radio" value="men" class="form-control" name="sex"></label>
+
                     </div>
                     <div class="col-sm-5 ml-2 mt-5 p-4" style="border: 1px solid #333333;">
                         <p class="text-center h1"><i class="fas fa-calendar-alt"></i></p>

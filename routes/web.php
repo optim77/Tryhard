@@ -69,3 +69,4 @@ Route::get('/znajomi','User@getFriends')->name('getFriends');
 
 //SHOW ROLLER PAGE
 Route::match(['get','post'],'/losuj','RollerController@roller')->name('rollerPage');
+Route::post('/roller','RollerController@getRoll')->name('getRoll');
