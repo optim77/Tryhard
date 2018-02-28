@@ -28,7 +28,7 @@ function roll() {
     $('#rollImg').toggleClass('rotated');
 
     $.ajax({
-        url: '{{route('getRoll')}}',
+        url: '/roller',
         type: 'POST',
         dataType: 'json',
         data: 'roll='+ 'yes' + '&gender=' + gender,

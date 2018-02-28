@@ -23,6 +23,7 @@ class User extends Controller
      */
     public function index()
     {
+
         return view('profile.base',['user' => Auth::user()]);
     }
 

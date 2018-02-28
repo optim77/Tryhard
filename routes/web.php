@@ -70,3 +70,8 @@ Route::get('/znajomi','User@getFriends')->name('getFriends');
 //SHOW ROLLER PAGE
 Route::match(['get','post'],'/losuj','RollerController@roller')->name('rollerPage');
 Route::post('/roller','RollerController@getRoll')->name('getRoll');
+
+//AJAX ADD VIEWERS
+Route::post('/addVisitor','VisitorsController@addVisitor')->name('addViewers');
+
+Route::get('/odwiedzajacy','VisitorsController@getVisitorsPage')->name('visitorsPage');

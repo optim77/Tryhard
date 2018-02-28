@@ -127,9 +127,28 @@
             </div>
         @endforeach
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        
+
+        document.onload = viewers();
+
+        function viewers() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('addViewers')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'user='+ {{$user->id}} + '&viewers=' + {{\Illuminate\Support\Facades\Auth::id()}},
+                success: function () {
+
+                }
+            });
+        }
         function addToFriends(i) {
 
             $.ajaxSetup({
@@ -228,7 +247,6 @@
                 }
             });
         }
-
         function comment(i,c) {
             $.ajaxSetup({
                 headers: {
@@ -260,16 +278,12 @@
                 });
             }
         }
-
         function showMore() {
             $(".more").fadeToggle('slow','swing',function () {
                 $("#showMoreBtn").html('Pokaż mniej')
             });
         }
-
-
-
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
     @endsection

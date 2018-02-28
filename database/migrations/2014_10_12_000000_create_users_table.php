@@ -23,9 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
             $table->string('birthday')->nullable();
-            $table->string('mainPhoto')->nullable();
-            $table->string('sex');
-            $table->ipAddress('ip');
+            $table->string('mainPhoto')->nullable()->default('default.jpg');
+            $table->string('sex')->nullable();
+            $table->ipAddress('ip')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -34,8 +34,12 @@
                     <label class="radio-inline m-3 radius text-white p-2 bg-primary table-bordered">
                         <input type="radio" id="all" value="all" name="optradio"><i class="fas fa-users h3"></i></label>
                 </div>
+                @if(Auth::user()->firstName == null && $user->surname == null)
 
-                <button onclick="roll()"  class="btn btn-primary w-100">Losuj</button>
+                    <button disabled="true" onclick="roll()"  class="btn btn-primary w-100">Losuj</button>
+                @else
+                    <button onclick="roll()"  class="btn btn-primary w-100">Losuj</button>
+                @endif
             </div>
 
             <div class="col-sm-12 mt-2">
@@ -92,7 +96,7 @@
                         '                            <p id="nameUser" class="text-center">'+ e.user[0].firstName + ' ' + e.user[0].surname+'</p>\n' +
                         '                        </a>\n' +
                         '                    </div>'
-                    )
+                    );
                 }
             });
         }

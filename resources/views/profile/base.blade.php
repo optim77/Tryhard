@@ -105,10 +105,10 @@
                 <div class="card">
                     <p class="text-center card-header "><a href="" >Odwiedzający</a></p>
                     <div class="card-body">
-                        <p class="text-center">Lorem ipsum<hr></p>
-                        <p class="text-center">Lorem ipsum<hr></p>
-                        <p class="text-center">Lorem ipsum<hr></p>
-                        <p class="text-center"><a href="">Zobacz więcej</a></p>
+                        @foreach($user->visitors as $v)
+                            <p class="text-center">{{$v->visitors}}<hr></p>
+                            @endforeach
+                        <p class="text-center"><a href="{{route('visitorsPage')}}">Zobacz więcej</a></p>
                     </div>
                 </div>
             </div>

@@ -15,8 +15,8 @@ class CreateVisitorsTable extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user');
-            $table->integer('visitors');
+            $table->integer('user')->unsigned()->onDelete('cascade');
+            $table->integer('visitors')->unsigned()->onDelete('cascade');;
             $table->foreign('user')->references('id')->on('users');
             $table->foreign('visitors')->references('id')->on('users');
             $table->timestamps();
