@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="btn-group">
-                                <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+                                <p class="btn btn-primary mt-2"><i class="fas fa-star"></i></p>
                                 <button class="btn mt-2">0</button>
                             </div>
                         </div>

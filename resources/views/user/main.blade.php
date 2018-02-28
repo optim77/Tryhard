@@ -26,13 +26,12 @@
             </div>
         </div>
 
-
         <div id="profileContent" class="row mt-3 d-flex text-center">
-            @foreach($photos as $p)
-
+            @foreach($user->photos as $p)
                 <div class="col-sm-12 mt-5" >
                     <button onclick="setProfilePhoto($(this).next('.card-img-top').attr('src'))" id="setImageBtn" class="btn btn-primary position-absolute  mt-2 ml-2"><i class="fas fa-images"></i></button>
-                    <img class="img-responsive img-rounded w-50 card-img-top" src="files/upload/{{$p->slug}}">
+
+                    <img class="img-responsive img-rounded w-50 card-img-top getImg" src="files/upload/{{$p->slug}}">
 
                     <p class="h5 text-center w-50 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
 
@@ -40,6 +39,7 @@
                         <div id="current-comment"></div>
                         <?php $i = 0; ?>
                         @foreach($p->comments as $c)
+
                             <?php $i++ ?>
                             @if($i <= 2)
                                 <div class="rounded pl-1 mt-2  w-100">
@@ -75,7 +75,7 @@
                             <div class="row">
                                 <div class="col-sm-2">
                                     <div class="btn-group">
-                                        <button onclick="like({{\Illuminate\Support\Facades\Auth::id()}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+                                        <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
                                         <button class="btn mt-2">0</button>
                                     </div>
                                 </div>
@@ -158,8 +158,21 @@
             });
         }
 
-        function like(i) {
-        
+        function like(p) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('rate')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'photo='+ p,
+                success: function () {
+                    $(this).css('background','#ffffff');
+                }
+            });
         }
 
     </script>

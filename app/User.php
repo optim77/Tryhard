@@ -29,11 +29,11 @@ class User extends Authenticatable
 
 
     public function photos(){
-        return $this->hasMany(Photos::class);
+        return $this->hasMany(Photos::class,'id');
     }
 
     public function comments(){
-        return $this->hasMany(Comments::class);
+        return $this->hasMany(Comments::class,'author');
     }
 
     public function friends()
@@ -46,6 +46,6 @@ class User extends Authenticatable
     }
 
     public function rate(){
-        $this->hasMany(Rate::class);
+       return $this->hasMany('App\Rate','id');
     }
 }

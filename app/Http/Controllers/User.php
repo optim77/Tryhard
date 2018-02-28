@@ -30,9 +30,13 @@ class User extends Controller
      * Display self profile
      */
     public function profile(){
-        $user = \App\User::find(Auth::id());
-        $photos = Photos::where('author',Auth::id())->get();
-        return view('user.main',['user' => $user,'photos' => $photos]);
+        $user = \App\User::with(['comments','photos','rate'])->where('id',Auth::id())->get()->all();
+
+//        foreach ($user as $u){
+//            dump($u->photos[0]->slug);
+//        }
+        //$photos = Photos::with(['comments'])->where('author',Auth::id())->get();
+        return view('user.main',['user' => $user[0]]);
 
     }
 

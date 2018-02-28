@@ -11,7 +11,7 @@ class Photos extends Model
     ];
 
     public function comments(){
-        return $this->hasMany('App\Comments');
+        return $this->hasMany('App\Comments','photos_id');
     }
 
     public function user(){
@@ -19,6 +19,6 @@ class Photos extends Model
     }
 
     public function rate(){
-        $this->hasMany(Rate::class);
+        $this->hasMany('App\Rate','id');
     }
 }

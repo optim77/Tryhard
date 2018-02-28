@@ -74,4 +74,7 @@ Route::post('/roller','RollerController@getRoll')->name('getRoll');
 //AJAX ADD VIEWERS
 Route::post('/addVisitor','VisitorsController@addVisitor')->name('addViewers');
 
+//SHOW PAGE WITH VIEWERS
 Route::get('/odwiedzajacy','VisitorsController@getVisitorsPage')->name('visitorsPage');
+
+Route::post('/ocen','RateController@getRate')->name('rate');
