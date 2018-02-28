@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function visitors(){
         return $this->hasMany(Visitors::class,'user');
     }
+
+    public function rate(){
+        $this->hasMany(Rate::class);
+    }
 }

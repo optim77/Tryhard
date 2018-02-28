@@ -103,7 +103,7 @@
             </div>
             <div class="col-sm-2 d-sm-none d-lg-block">
                 <div class="card">
-                    <p class="text-center card-header "><a href="" >Odwiedzający</a></p>
+                    <p class="text-center card-header ">Odwiedzający</p>
                     <div class="card-body">
                         @foreach($user->visitors as $v)
                             <p class="text-center">{{$v->visitors}}<hr></p>

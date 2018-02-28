@@ -18,7 +18,7 @@ class CreatePhotosTable extends Migration
             $table->integer('author')->unsigned()->onDelete('cascade');
             $table->string('slug')->onDelete('cascade');
             $table->string('description')->nullable();
-            $table->integer('stars');
+            $table->integer('stars')->nullable();
             $table->foreign('author')->references('id')->on('users');
             $table->timestamps();
         });

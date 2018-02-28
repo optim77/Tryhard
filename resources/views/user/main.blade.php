@@ -75,7 +75,7 @@
                             <div class="row">
                                 <div class="col-sm-2">
                                     <div class="btn-group">
-                                        <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+                                        <button onclick="like({{\Illuminate\Support\Facades\Auth::id()}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
                                         <button class="btn mt-2">0</button>
                                     </div>
                                 </div>
@@ -100,6 +100,7 @@
 
 
     <script>
+
         function comment(i,c) {
             $.ajaxSetup({
                 headers: {
@@ -156,6 +157,11 @@
                 }
             });
         }
+
+        function like(i) {
+        
+        }
+
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
