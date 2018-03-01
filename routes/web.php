@@ -77,4 +77,6 @@ Route::post('/addVisitor','VisitorsController@addVisitor')->name('addViewers');
 //SHOW PAGE WITH VIEWERS
 Route::get('/odwiedzajacy','VisitorsController@getVisitorsPage')->name('visitorsPage');
 
+//GET RATE PHOTOS
 Route::post('/ocen','RateController@getRate')->name('rate');
+Route::post('/unlike','RateController@unlike')->name('unlike');

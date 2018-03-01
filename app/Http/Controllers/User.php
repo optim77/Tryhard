@@ -23,6 +23,8 @@ class User extends Controller
      */
     public function index()
     {
+        
+
         return view('profile.base',['user' => Auth::user()]);
     }
 
@@ -30,12 +32,8 @@ class User extends Controller
      * Display self profile
      */
     public function profile(){
-        $user = \App\User::with(['comments','photos','rate'])->where('id',Auth::id())->get()->all();
+        $user = \App\User::with(['comments','photos','rate'])->where('users.id',Auth::id())->get()->all();
 
-//        foreach ($user as $u){
-//            dump($u->photos[0]->slug);
-//        }
-        //$photos = Photos::with(['comments'])->where('author',Auth::id())->get();
         return view('user.main',['user' => $user[0]]);
 
     }

@@ -17,8 +17,8 @@ class Photos extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
+    //OK!!!!!!
     public function rate(){
-        $this->hasMany('App\Rate','id');
+         return $this->hasMany('App\Rate','photos');
     }
 }

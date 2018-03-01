@@ -9,6 +9,7 @@
 namespace App\Http\Composers;
 
 use App\Friends;
+use App\Rate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 

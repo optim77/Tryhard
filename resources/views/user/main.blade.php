@@ -34,7 +34,6 @@
                     <img class="img-responsive img-rounded w-50 card-img-top getImg" src="files/upload/{{$p->slug}}">
 
                     <p class="h5 text-center w-50 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
-
                     <div class="jumbotron w-50 mt-3" style="margin-left: auto;margin-right: auto">
                         <div id="current-comment"></div>
                         <?php $i = 0; ?>
@@ -74,15 +73,26 @@
 
                             <div class="row">
                                 <div class="col-sm-2">
+
                                     <div class="btn-group">
-                                        <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
-                                        <button class="btn mt-2">0</button>
+                                        <?php $liked = 'false' ?>
+                                        @foreach($p->rate as $r)
+                                            @if($r->users == Auth::id())
+                                                <button onclick="unlike({{$p->id}})" class="btn btn-success mt-2"><i class="fas fa-star"></i></button>
+                                                <?php $liked = 'true' ?>
+                                                @break
+                                            @endif
+                                        @endforeach
+                                        @if(isset($liked) && $liked != 'true')
+                                                <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+                                            @endif
+                                        <button class="btn mt-2">{{count($p->rate)}}</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-2 d-flex justify-content-start">
                                     <div class="btn-group">
                                         <button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
-                                        <button class="btn mt-2">0</button>
+                                        <button class="btn mt-2">{{count($p->comments)}}</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -157,7 +167,6 @@
                 }
             });
         }
-
         function like(p) {
             $.ajaxSetup({
                 headers: {
@@ -171,6 +180,22 @@
                 data: 'photo='+ p,
                 success: function () {
                     $(this).css('background','#ffffff');
+                }
+            });
+        }
+        function unlike(p) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('unlike')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'photo='+ p,
+                success: function () {
+
                 }
             });
         }

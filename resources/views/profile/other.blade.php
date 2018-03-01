@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-sm-2 d-flex justify-content-start">
                             <div class="btn-group">
-                                <button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
+                                <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
                                 <button class="btn mt-2">0</button>
                             </div>
                         </div>
@@ -283,6 +283,23 @@
                 $("#showMoreBtn").html('Pokaż mniej')
             });
         }
+        function like(p) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('rate')}}',
+                type: 'POST',
+                dataType: 'json',
+                data: 'photo='+ p,
+                success: function () {
+                    $(this).css('background','#ffffff');
+                }
+            });
+        }
+
     </script>
 
 

@@ -20,4 +20,11 @@ class RateController extends Controller
         return new JsonResponse($response);
     }
 
+    public function unlike(Request $request){
+        $photo = $request->get('photo');
+        $rate = Rate::where('photos',$photo)->where('users',Auth::id())->delete();
+        $response = array('code' => 100,'success' => true);
+        return new JsonResponse($response);
+    }
+
 }
