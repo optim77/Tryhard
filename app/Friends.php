@@ -12,4 +12,7 @@ class Friends extends Model
         return $this->belongsTo('App\User','id');
     }
 
+    public function photos(){
+        return $this->hasMany('App\Photos','id');
+    }
 }

@@ -23,18 +23,27 @@ class User extends Controller
      */
     public function index()
     {
-        
-
-        return view('profile.base',['user' => Auth::user()]);
+//        $news = \App\User::with(['friends' => function($query){
+//            $query->with(['photos' => function($query){
+//                $query->with(['comments','rate']);
+//            }]);
+//        }])->where('id',Auth::id())->get()->all();
+        $news = DB::table('users')
+            ->join('friends','users.id','=','friends.user_id2')
+            ->select('users.*','friends.*')
+            ->where('friends.user_id1','=',Auth::id())->get()->all();
+        return view('profile.base',['news' => $news,'user' => Auth::user()]);
     }
 
     /*
      * Display self profile
      */
     public function profile(){
-        $user = \App\User::with(['comments','photos','rate'])->where('users.id',Auth::id())->get()->all();
-
-        return view('user.main',['user' => $user[0]]);
+        $user = \App\User::with(['comments','photos' => function($query){
+            $query->where('author','=',Auth::id())->get()->all();
+        },'rate'])->where('users.id',Auth::id())->get()->all();
+        $photos = Photos::with('comments','rate')->where('author','=',Auth::id())->get()->all();
+        return view('user.main',['photos' => $photos ,'user' => $user[0]]);
 
     }
 

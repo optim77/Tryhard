@@ -13,7 +13,19 @@
             </div>
             <div class="col-sm-12 col-lg-8">
 
+                <div class="row">
 
+
+                @foreach($news as $n)
+
+                    <div class="col-sm-4 p-3 m-3 text-center">
+                        <img class="img-responsive  img-thumbnail" src="files/upload/{{$n->mainPhoto}}">
+                        <p>{{$n->firstName}} {{$n->surname}}</p>
+                    </div>
+
+
+                    @endforeach
+                </div>
                 <div class=" p-5" style="border-top: solid 5px #007bff">
                     <img class="img-responsive img-rounded w-100" src="https://static.pexels.com/photos/119730/pexels-photo-119730.jpeg">
 

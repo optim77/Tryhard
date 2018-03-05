@@ -21,4 +21,8 @@ class Photos extends Model
     public function rate(){
          return $this->hasMany('App\Rate','photos');
     }
+
+    public function friends(){
+        return $this->belongsTo('App\Friends','id');
+    }
 }

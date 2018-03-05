@@ -27,7 +27,7 @@
         </div>
 
         <div id="profileContent" class="row mt-3 d-flex text-center">
-            @foreach($user->photos as $p)
+            @foreach($photos as $p)
                 <div class="col-sm-12 mt-5" >
                     <button onclick="setProfilePhoto($(this).next('.card-img-top').attr('src'))" id="setImageBtn" class="btn btn-primary position-absolute  mt-2 ml-2"><i class="fas fa-images"></i></button>
 
