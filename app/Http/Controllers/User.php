@@ -32,7 +32,22 @@ class User extends Controller
             ->join('friends','users.id','=','friends.user_id2')
             ->select('users.*','friends.*')
             ->where('friends.user_id1','=',Auth::id())->get()->all();
-        return view('profile.base',['news' => $news,'user' => Auth::user()]);
+        $photos = DB::table('friends')
+            ->join('photos','friends.user_id2','=','photos.author')
+            ->select('friends.*','photos.*')
+            ->where('friends.user_id1','=',Auth::id())->get()->all();
+        dump($photos);
+//        $photos1 = Friends::with(['photos','user'])->where('user_id1','=',Auth::id())->get()->all();
+//        dump($photos1);
+        $visitors = DB::table('visitors')
+            ->join('users','visitors.visitors','=','users.id')
+            ->select('users.*')
+            ->where('visitors.user',Auth::id())
+            ->get()->all();
+        return view('profile.base',['news' => $news,
+            'user' => Auth::user(),
+            'visitors' => $visitors,
+            'photos' => $photos]);
     }
 
     /*
