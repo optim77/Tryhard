@@ -80,3 +80,6 @@ Route::get('/odwiedzajacy','VisitorsController@getVisitorsPage')->name('visitors
 //GET RATE PHOTOS
 Route::post('/ocen','RateController@getRate')->name('rate');
 Route::post('/unlike','RateController@unlike')->name('unlike');
+
+//DISPLAY SINGLE PHOTO
+Route::match(['get','post'],'/zdjecie/{photo}','PhotosController@displayPhoto')->name('displayPhoto');

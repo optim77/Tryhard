@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-12 col-lg-8">
 
-                <div class="row">
+                <div class="row table-bordered mb-5">
 
 
                 @foreach($news as $n)
@@ -30,9 +30,16 @@
                 </div>
                 <div class="row">
                     @foreach($photos as $p)
-                        <div class="col-sm-12 text-center">
-                            <p class="text-left">{{$p->author}}</p>
-                            <img class="img-thumbnail w-75" src="files/upload/{{$p->slug}}">
+                        <div class="col-sm-12 text-center mt-2">
+                            <a class="text-dark" href="{{route('getUserProfile',[$p->firstName,$p->surname,$p->user_id2])}}">
+                                <img class="img-responsive" style="width: 50px" src="files/upload/{{$p->mainPhoto}}">
+                                <p class="text-center">{{$p->firstName}} {{$p->surname}}</p>
+                            </a>
+                            <a href="{{route('displayPhoto',$p->slug)}}">
+                                <img class="img-thumbnail w-75" src="files/upload/{{$p->slug}}">
+                            </a>
+                            <p>{{$p->description}}</p>
+                            <hr>
                         </div>
 
                     @endforeach

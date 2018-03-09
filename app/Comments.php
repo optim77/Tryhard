@@ -18,4 +18,8 @@ class Comments extends Model
     public function user(){
         return $this->belongsTo(User::class,'id');
     }
+
+    public function friends(){
+        return $this->belongsTo('App\Friends','user_id2');
+    }
 }

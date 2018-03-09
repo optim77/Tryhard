@@ -15,4 +15,12 @@ class Friends extends Model
     public function photos(){
         return $this->hasMany('App\Photos','id');
     }
+
+    public function comments(){
+        return $this->hasMany('App\Comments','author');
+    }
+
+    public function rate(){
+        return $this->hasMany('App\Rate','users');
+    }
 }

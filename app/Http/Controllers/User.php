@@ -34,11 +34,12 @@ class User extends Controller
             ->where('friends.user_id1','=',Auth::id())->get()->all();
         $photos = DB::table('friends')
             ->join('photos','friends.user_id2','=','photos.author')
-            ->select('friends.*','photos.*')
-            ->where('friends.user_id1','=',Auth::id())->get()->all();
-        dump($photos);
-//        $photos1 = Friends::with(['photos','user'])->where('user_id1','=',Auth::id())->get()->all();
-//        dump($photos1);
+            ->join('users','friends.id','=','users.id')
+            ->select('friends.*','photos.*','users.firstName','users.surname','users.id','users.mainPhoto')
+            ->where('friends.user_id1','=',Auth::id())->get('user_id2')->all();
+
+        $friends = Friends::with(['user','comments','photos','rate'])->where('friends.user_id1','=',Auth::id())->get();
+
         $visitors = DB::table('visitors')
             ->join('users','visitors.visitors','=','users.id')
             ->select('users.*')

@@ -15,7 +15,7 @@ class Photos extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\User','id');
     }
     //OK!!!!!!
     public function rate(){
