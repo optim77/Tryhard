@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Rate extends Model
 {
     public function user(){
-        return $this->belongsTo('App\User','id');
+        return $this->belongsToMany('App\User','users','users','id');
     }
 
     public function photos(){
-        return $this->belongsTo('App\Photos','id');
+        return $this->belongsToMany(Photos::class,'photos','id','id');
     }
 
     public function rate(){

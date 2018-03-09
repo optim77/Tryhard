@@ -9,7 +9,7 @@ class Friends extends Model
     //
 
     public function user(){
-        return $this->belongsTo('App\User','id');
+        return $this->belongsToMany('App\User','users','user_id2','id');
     }
 
     public function photos(){
