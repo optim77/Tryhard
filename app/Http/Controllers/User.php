@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Friends;
 use App\Photos;
+use App\UserHasPhotos;
+use App\Visitors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,43 +25,35 @@ class User extends Controller
      */
     public function index()
     {
-//        $news = \App\User::with(['friends' => function($query){
-//            $query->with(['photos' => function($query){
-//                $query->with(['comments','rate']);
-//            }]);
-//        }])->where('id',Auth::id())->get()->all();
-        $news = DB::table('users')
-            ->join('friends','users.id','=','friends.user_id2')
-            ->select('users.*','friends.*')
-            ->where('friends.user_id1','=',Auth::id())->get()->all();
-        $photos = DB::table('friends')
-            ->join('photos','friends.user_id2','=','photos.author')
-            ->join('users','friends.id','=','users.id')
-            ->select('friends.*','photos.*','users.firstName','users.surname','users.id','users.mainPhoto')
-            ->where('friends.user_id1','=',Auth::id())->get('user_id2')->all();
 
-        $friends = Friends::with(['user','comments','photos','rate'])->where('friends.user_id1','=',Auth::id())->get();
+//        $user = \App\User::with(['photos'])->where('id','=',Auth::id())->get()->all();
+//        dump($user);
 
-        $visitors = DB::table('visitors')
-            ->join('users','visitors.visitors','=','users.id')
-            ->select('users.*')
-            ->where('visitors.user',Auth::id())
-            ->get()->all();
-        return view('profile.base',['news' => $news,
+        $photos = Friends::with(['user','photos'=>function($query) {
+            $query->with(['comments' => function($query){
+                $query->with(['user'])->get()->all();
+            },'rate'])->get()->all();
+        }
+        ])->where('user_id1','=',Auth::id())->get()->all();
+        $visitors = Visitors::where('user','=',Auth::id())->get()->all();
+        return view('profile.base',[
             'user' => Auth::user(),
-            'visitors' => $visitors,
-            'photos' => $photos]);
+            'photos' => $photos[0],
+            'visitors' => $visitors
+        ]);
     }
 
     /*
      * Display self profile
      */
     public function profile(){
-        $user = \App\User::with(['comments','photos' => function($query){
-            $query->where('author','=',Auth::id())->get()->all();
-        },'rate'])->where('users.id',Auth::id())->get()->all();
-        $photos = Photos::with('comments','rate')->where('author','=',Auth::id())->get()->all();
-        return view('user.main',['photos' => $photos ,'user' => $user[0]]);
+        $photos = DB::table('photos')
+            ->join('user_has_photos','photos.id','=','user_has_photos.photo')
+            ->select('photos.*')
+            ->where('user_has_photos.user','=',Auth::id())->get()->all();
+        dump($photos);
+        return view('user.main',['user' => Auth::user(),'photos' => $photos]
+        );
 
     }
 
@@ -85,12 +79,17 @@ class User extends Controller
         if ($request->file('file')){
             if ($request->file('file')->getClientSize() < 500000){
                 $photo = new Photos();
+                $pivot = new UserHasPhotos();
+                $pivot->user = Auth::id();
+                $pivot->photo;
                 $photo->description = $request->get('description');
-                $photo->author =Auth::id();
                 $name = uniqid(null,true);
                 $guessExtension = $request->file('file')->guessExtension();
                 $photo->slug = $name.'.'.$guessExtension;
                 $photo->save();
+                $id = Photos::where('slug','=',$name.'.'.$guessExtension)->get()->all();
+                $pivot->photo = $id[0]->id;
+                $pivot->save();
                 $request->file('file')->move('files//upload',$name.'.'.$guessExtension);
                 redirect(route('userProfile'));
             }else{

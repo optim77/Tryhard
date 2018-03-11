@@ -13,32 +13,55 @@
             </div>
             <div class="col-sm-12 col-lg-8">
 
-                <div class="row table-bordered mb-5">
+                {{--<div class="row table-bordered mb-5">--}}
+                {{--@foreach($news as $n)--}}
+                    {{--<div class="col-sm-2 p-3 m-3 text-center">--}}
+                        {{--<a class="text-dark" href="{{route('getUserProfile',[$n->firstName,$n->surname,$n->user_id2])}}">--}}
+                            {{--<img class="img-responsive  img-thumbnail" style="border-radius: 50%;" src="files/upload/{{$n->mainPhoto}}">--}}
+                            {{--<p>{{$n->firstName}} {{$n->surname}}</p>--}}
+                        {{--</a>--}}
+                        {{--<hr>--}}
+                    {{--</div>--}}
 
+                    {{--@endforeach--}}
+                    {{--<hr>--}}
+                {{--</div>--}}
 
-                @foreach($news as $n)
-                    <div class="col-sm-2 p-3 m-3 text-center">
-                        <a class="text-dark" href="{{route('getUserProfile',[$n->firstName,$n->surname,$n->user_id2])}}">
-                            <img class="img-responsive  img-thumbnail" style="border-radius: 50%;" src="files/upload/{{$n->mainPhoto}}">
-                            <p>{{$n->firstName}} {{$n->surname}}</p>
-                        </a>
-                        <hr>
-                    </div>
+                <?php  dump($photos); ?>
 
-                    @endforeach
-                    <hr>
-                </div>
                 <div class="row">
-                    @foreach($photos as $p)
+                    @foreach($photos->photos as $p)
+
+
+
                         <div class="col-sm-12 text-center mt-2">
-                            <a class="text-dark" href="{{route('getUserProfile',[$p->firstName,$p->surname,$p->user_id2])}}">
-                                <img class="img-responsive" style="width: 50px" src="files/upload/{{$p->mainPhoto}}">
-                                <p class="text-center">{{$p->firstName}} {{$p->surname}}</p>
-                            </a>
+
+                            @foreach($photos->user as $u)
+                                    <a class="text-dark" href="{{route('getUserProfile',[$u->firstName,$u->surname,$u->id])}}">
+                                        <img class="img-responsive" style="width: 50px" src="files/upload/{{$u->mainPhoto}}">
+                                        <p class="text-center">{{$u->firstName}} {{$u->surname}}</p>
+                                    </a>
+                            @endforeach
+
                             <a href="{{route('displayPhoto',$p->slug)}}">
                                 <img class="img-thumbnail w-75" src="files/upload/{{$p->slug}}">
                             </a>
                             <p>{{$p->description}}</p>
+
+                                @foreach($p->comments as $c)
+
+                                        @foreach($c->user as $a)
+                                            <a class="text-dark" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
+                                                <img class="img-responsive" style="width: 50px" src="files/upload/{{$a->mainPhoto}}">
+                                                <p class="text-center">{{$a->firstName}} {{$a->surname}}</p>
+                                            </a>
+                                        @endforeach
+
+                                    {{$c->content}}
+
+                                    @endforeach
+
+
                             <hr>
                         </div>
 

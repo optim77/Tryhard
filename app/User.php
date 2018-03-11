@@ -27,9 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
+    //STATUS: DONE
     public function photos(){
-        return $this->hasMany(Photos::class,'id');
+        return $this->belongsToMany(Photos::class,'user_has_photos','user','photo','id');
     }
 
     public function comments(){
@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     public function friends()
     {
-        return $this->hasMany(Friends::class, 'user_id1');
+        return $this->hasMany(Friends::class, 'user_id1','id');
     }
 
     public function visitors(){

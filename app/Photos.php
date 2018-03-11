@@ -10,19 +10,14 @@ class Photos extends Model
         'description'
     ];
 
+    //STATUS: DONE
     public function comments(){
-        return $this->hasMany('App\Comments','photos_id');
+        return $this->belongsToMany('App\Comments','photos_has_comments','photo','comment','id')->withTimestamps();
     }
 
-    public function user(){
-        return $this->belongsTo('App\User','id');
-    }
+
     //OK!!!!!!
     public function rate(){
-         return $this->hasMany('App\Rate','photos');
-    }
-
-    public function friends(){
-        return $this->belongsTo('App\Friends','id');
+         return $this->belongsToMany('App\Rate','photos_has_rates','photo','rate','id')->withTimestamps();
     }
 }

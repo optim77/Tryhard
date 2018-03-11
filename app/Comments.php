@@ -12,14 +12,14 @@ class Comments extends Model
     ];
 
     public function photos(){
-        return $this->belongsTo('App\Photos');
+        return $this->belongsToMany('App\Photos','photos_has_comments','id','id');
     }
 
     public function user(){
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsToMany(User::class,'user_has_comments','user','comment','id')->withTimestamps();
     }
 
     public function friends(){
-        return $this->belongsTo('App\Friends','user_id2');
+        return $this->belongsToMany('App\Friends','user_has_comments','id','id');
     }
 }
