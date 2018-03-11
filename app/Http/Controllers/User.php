@@ -29,7 +29,7 @@ class User extends Controller
 //        $user = \App\User::with(['photos'])->where('id','=',Auth::id())->get()->all();
 //        dump($user);
 
-        $photos = Friends::with(['user','photos'=>function($query) {
+        $photos = Friends::with(['user','photos' => function($query) {
             $query->with(['comments' => function($query){
                 $query->with(['user'])->get()->all();
             },'rate'])->get()->all();
@@ -47,12 +47,12 @@ class User extends Controller
      * Display self profile
      */
     public function profile(){
-        $photos = DB::table('photos')
-            ->join('user_has_photos','photos.id','=','user_has_photos.photo')
-            ->select('photos.*')
-            ->where('user_has_photos.user','=',Auth::id())->get()->all();
-        dump($photos);
-        return view('user.main',['user' => Auth::user(),'photos' => $photos]
+        $user = \App\User::with(['photos' => function($query){
+            $query->with(['comments' => function($query){
+                $query->with(['user'])->get()->all();
+            }])->get()->all();
+        },'rate'])->where('id','=',Auth::id())->get()->all();
+        return view('user.main',['user' => Auth::user(),'photos' => $user[0]]
         );
 
     }
@@ -109,15 +109,14 @@ class User extends Controller
             return redirect(route('userProfile'));
         }else{
             $user = \App\User::find($id);
-            $photos = Photos::with('comments')->where('author',$id)->get()->all();
-//        $photos = DB::table('photos')
-//            ->join('comments','photos.id','=','comments.photos_id')
-//            ->join('users','photos.author','=','users.id')
-//            ->select('comments.*','users.firstName','users.surname','users.mainPhoto','photos.*')
-//            ->where('photos.author',$id)->get()->all();
-//        dump($photos);
+
+            $photos = \App\User::with(['photos' => function($query){
+                $query->with(['comments' => function($query){
+                    $query->with(['user'])->get()->all();
+                }])->get()->all();
+            },'rate'])->where('id','=',$id)->get()->all();
             $friends = Friends::where('user_id1',$id)->where('user_id2',Auth::id())->orWhere('user_id1',Auth::id())->where('user_id2',$id)->get()->all();
-            return view('profile.other',['user' => $user, 'photos' => $photos,'friends' => $friends]);
+            return view('profile.other',['user' => $user,'photos' => $photos[0],'friends' => $friends]);
         }
 
     }

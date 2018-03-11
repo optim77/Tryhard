@@ -58,7 +58,7 @@
     </div>
 
     <div class="row mt-3 d-flex text-center">
-        @foreach($photos as $p)
+        @foreach($photos->photos as $p)
 
             <div class="col-sm-12 mt-5" >
                 <img class="img-responsive img-rounded w-25 card-img-top" src="../files/upload/{{$p->slug}}">
@@ -72,26 +72,30 @@
                         <?php $i++ ?>
                         @if($i <= 2)
                         <div class="rounded pl-1 mt-2  w-100">
-                            <div class="text-left h5">
-                                <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">
-                                {{$c->author}}
-                            </div>
-                            <p class="text-left">{{$c->content}}</p>
-                            <p class="text-muted d-flex justify-content-end align-text-top">{{$c->created_at}}</p>
-                            <hr>
+                            @foreach($c->user as $a)
+                                <div class="text-left">
+                                    <a class="text-dark" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
+                                        <img class="img-responsive" style="width: 50px" src="../files/upload/{{$a->mainPhoto}}">
+                                        {{$a->firstName}} {{$a->surname}}
+                                    </a>
+                                    <p class="text-left mt-2 ml-2">{{$c->content}}</p>
+                                    <hr>
+                                </div>
+                            @endforeach
                         </div>
                             @else
 
 
-                                <div class="rounded pl-1 mt-2 more  w-100" style="display: none">
-                                    <div class="text-left h5">
-                                        <img style="width: 50px;" class="p-1 d-flex justify-content-start" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">
-                                        {{$c->author}}
+                                @foreach($c->user as $a)
+                                    <div class="text-left">
+                                        <a class="text-dark" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
+                                            <img class="img-responsive" style="width: 50px" src="../files/upload/{{$a->mainPhoto}}">
+                                            {{$a->firstName}} {{$a->surname}}
+                                        </a>
+                                        <p class="text-left mt-2 ml-2">{{$c->content}}</p>
+                                        <hr>
                                     </div>
-                                    <p class="text-left">{{$c->content}}</p>
-                                    <p class="text-muted d-flex justify-content-end align-text-top">{{$c->created_at}}</p>
-                                    <hr>
-                                </div>
+                                @endforeach
 
                                 <?php $flag = 'hide' ?>
 

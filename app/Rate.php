@@ -11,7 +11,7 @@ class Rate extends Model
     }
 
     public function photos(){
-        return $this->belongsToMany(Photos::class,'photos','id','id');
+        return $this->belongsToMany(Photos::class,'photos','id','id')->withTimestamps();
     }
 
     public function rate(){

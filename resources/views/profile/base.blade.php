@@ -27,7 +27,6 @@
                     {{--<hr>--}}
                 {{--</div>--}}
 
-                <?php  dump($photos); ?>
 
                 <div class="row">
                     @foreach($photos->photos as $p)
