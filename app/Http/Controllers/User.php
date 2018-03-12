@@ -115,6 +115,7 @@ class User extends Controller
                     $query->with(['user'])->get()->all();
                 }])->get()->all();
             },'rate'])->where('id','=',$id)->get()->all();
+            dump($photos);
             $friends = Friends::where('user_id1',$id)->where('user_id2',Auth::id())->orWhere('user_id1',Auth::id())->where('user_id2',$id)->get()->all();
             return view('profile.other',['user' => $user,'photos' => $photos[0],'friends' => $friends]);
         }

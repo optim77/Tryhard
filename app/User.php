@@ -32,9 +32,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Photos::class,'user_has_photos','user','photo','id');
     }
 
-    public function comments(){
-        return $this->hasMany(Comments::class,'author');
-    }
+
 
     public function friends()
     {

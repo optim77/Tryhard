@@ -11,9 +11,12 @@ namespace App\Http\Controllers;
 
 use App\Comments;
 use App\Friends;
+use App\PhotosHasComments;
+use App\UserHasComments;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AjaxController
 {
@@ -113,12 +116,22 @@ class AjaxController
     public function commentAction(Request $request){
         $target = $request->get('target');
         $content = $request->get('content');
-        $id = Auth::id();
+
         $comment = new Comments();
-        $comment->author = $id;
-        $comment->photos_id = $target;
-        $comment->content = $content;
-        $comment->save();
+        $comment = DB::table('comments')->insertGetId(['content' => $content,'created_at' => new \DateTime()],'id');
+
+        $photo = new PhotosHasComments();
+        $photo->photo = $target;
+        $photo->comment = $comment;
+        $photo->save();
+
+
+        $user = new UserHasComments();
+        $user->user = Auth::id();
+        $user->created_at = new \DateTime();
+        $user->comment = $comment;
+        $user->save();
+        
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
     }
