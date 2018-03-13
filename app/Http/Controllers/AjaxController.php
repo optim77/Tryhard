@@ -131,7 +131,7 @@ class AjaxController
         $user->created_at = new \DateTime();
         $user->comment = $comment;
         $user->save();
-        
+
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
     }

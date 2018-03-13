@@ -69,6 +69,7 @@
                     <div id="current-comment"></div>
                     <?php $i = 0; ?>
                     @foreach($p->comments as $c)
+                        <?php //dump($c); ?>
                         <?php $i++ ?>
                         @if($i <= 2)
                         <div class="rounded pl-1 mt-2  w-100">

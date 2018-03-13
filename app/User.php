@@ -29,10 +29,13 @@ class User extends Authenticatable
 
     //STATUS: DONE
     public function photos(){
-        return $this->belongsToMany(Photos::class,'user_has_photos','user','photo','id');
+        return $this->belongsToMany(Photos::class,'user_has_photos','user','photo','id')->withTimestamps();
     }
 
 
+    public function comments(){
+        return $this->belongsToMany('user_has_comments','user','comment')->withTimestamps();
+    }
 
     public function friends()
     {

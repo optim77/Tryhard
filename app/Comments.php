@@ -16,7 +16,8 @@ class Comments extends Model
     }
 
     public function user(){
-        return $this->belongsToMany(User::class,'user_has_comments','user','comment','id')->withTimestamps();
+        //return $this->belongsTo(User::class,'id','id','user_has_comments');
+        return $this->belongsToMany(User::class,'user_has_comments','comment','user','id')->withTimestamps();
     }
 
     public function friends(){

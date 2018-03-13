@@ -25,6 +25,9 @@ class CreateUsersTable extends Migration
             $table->string('birthday')->nullable();
             $table->string('mainPhoto')->nullable()->default('default.jpg');
             $table->string('sex')->nullable();
+            $table->integer('viewers')->nullable();
+            $table->integer('stars')->nullable();
+            $table->integer('friends')->nullable();
             $table->ipAddress('ip')->nullable();
             $table->rememberToken();
             $table->timestamps();
