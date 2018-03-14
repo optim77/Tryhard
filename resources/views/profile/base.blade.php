@@ -44,116 +44,73 @@
 
                             <a href="{{route('displayPhoto',$p->slug)}}">
                                 <img class="img-thumbnail w-75" src="files/upload/{{$p->slug}}">
+                                <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
                             </a>
                             <p>{{$p->description}}</p>
-
-                                @foreach($p->comments as $c)
+                                <div class="jumbotron w-75 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
+                                    <div id="current-comment"></div>
+                                    <?php $i = 0; ?>
+                                    @foreach($p->comments as $c)
+                                        @if($i <= 2)
 
                                         @foreach($c->user as $a)
-                                            <a class="text-dark" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
+                                            <div class="text-left">
+                                            <a class="text-dark text-left" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
                                                 <img class="img-responsive" style="width: 50px" src="files/upload/{{$a->mainPhoto}}">
-                                                <p class="text-center">{{$a->firstName}} {{$a->surname}}</p>
+                                                {{$a->firstName}} {{$a->surname}}
                                             </a>
+                                            </div>
+                                                <p class="text-left mt-2 ml-2">{{$c->content}}</p>
+                                                <hr>
                                         @endforeach
+                                        @else
 
-                                    {{$c->content}}
-
+                                            @foreach($c->user as $a)
+                                                <div class="text-left">
+                                                    <a class="text-dark text-left" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
+                                                        <img class="img-responsive" style="width: 50px" src="files/upload/{{$a->mainPhoto}}">
+                                                        {{$a->firstName}} {{$a->surname}}
+                                                    </a>
+                                                </div>
+                                                <p class="text-left mt-2 ml-2">{{$c->content}}</p>
+                                                <hr>
+                                            @endforeach
+                                                <?php $flag = 'hide' ?>
+                                            @endif
                                     @endforeach
+                                    @if(isset($flag) && $flag != null)
+                                        <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
+                                    @endif
 
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+                                                <button class="btn mt-2">0</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 d-flex justify-content-start">
+                                            <div class="btn-group">
+                                                <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
+                                                <button class="btn mt-2">0</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-inline mt-5 d-flex justify-content-start">
+                                                <textarea id="commentContext" class="form-control mr-1 ml-sm-12 ml-lg-0 w-100"rows="1"></textarea>
+                                                <input onclick="comment({{$p->id}},$(this).prev('#commentContext').val())" type="button" class="btn btn-primary mt-2" value="Wyślij">
+                                            </div>
+                                        </div>
+                                    </div>
 
+                        </div>
                             <hr>
                         </div>
 
+
+
                     @endforeach
                 </div>
-
-
-
-                {{--<div class=" p-5" style="border-top: solid 5px #007bff">--}}
-                    {{--<img class="img-responsive img-rounded w-100" src="https://static.pexels.com/photos/119730/pexels-photo-119730.jpeg">--}}
-
-                    {{--<div class="rounded pl-1 mt-2 bg-warning">--}}
-                        {{--<div class="h5"><img style="width: 50px;" class="p-1" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">Lorem</div>--}}
-                        {{--<p class="">Lorem</p>--}}
-                    {{--</div>--}}
-
-                    {{--<div class="rounded pl-1 mt-2 bg-warning" >--}}
-                        {{--<div class="h5"><img style="width: 50px;" class="p-1" src="https://images.pexels.com/photos/433524/pexels-photo-433524.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">Lorem</div>--}}
-                        {{--<p class="">Lorem</p>--}}
-                    {{--</div>--}}
-
-                    {{--<hr>--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-sm-2">--}}
-                            {{--<div class="btn-group">--}}
-                                {{--<button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>--}}
-                                {{--<button class="btn mt-2">0</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-2">--}}
-                            {{--<div class="btn-group">--}}
-                                {{--<button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>--}}
-                                {{--<button class="btn mt-2">0</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-8">--}}
-                            {{--<div class="form-inline mt-2 d-flex justify-content-start">--}}
-                                {{--<textarea class="form-control mr-1 ml-sm-4 ml-lg-0 w-50"rows="1"></textarea>--}}
-                                {{--<input type="button" class="btn btn-primary " value="Wyślij">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class=" p-5" style="border-top: solid 5px #007bff">--}}
-                    {{--<img class="img-responsive img-rounded w-100" src="https://static.pexels.com/photos/119730/pexels-photo-119730.jpeg">--}}
-                    {{--<hr>--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-sm-2">--}}
-                                {{--<div class="btn-group">--}}
-                                    {{--<button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>--}}
-                                    {{--<button class="btn mt-2">0</button>--}}
-                                {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-2">--}}
-                            {{--<div class="btn-group">--}}
-                                {{--<button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>--}}
-                                {{--<button class="btn mt-2">0</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-8">--}}
-                            {{--<div class="form-inline mt-2 d-flex justify-content-start">--}}
-                                {{--<textarea class="form-control mr-1 ml-sm-4 ml-lg-0 w-50"rows="1"></textarea>--}}
-                                {{--<input type="button" class="btn btn-primary " value="Wyślij">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class=" p-5" style="border-top: solid 5px #007bff">--}}
-                    {{--<img class="img-responsive img-rounded w-100" src="https://static.pexels.com/photos/119730/pexels-photo-119730.jpeg">--}}
-                    {{--<hr>--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-sm-2">--}}
-                            {{--<div class="btn-group">--}}
-                                {{--<p class="btn btn-primary mt-2"><i class="fas fa-star"></i></p>--}}
-                                {{--<button class="btn mt-2">0</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-2">--}}
-                            {{--<div class="btn-group">--}}
-                                {{--<button class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>--}}
-                                {{--<button class="btn mt-2">0</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-8">--}}
-                            {{--<div class="form-inline mt-2 d-flex justify-content-start">--}}
-                                {{--<textarea class="form-control mr-1 ml-sm-4 ml-lg-0 w-50"rows="1"></textarea>--}}
-                                {{--<input type="button" class="btn btn-primary " value="Wyślij">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
 
             </div>
             <div class="col-sm-2 d-sm-none d-lg-block">

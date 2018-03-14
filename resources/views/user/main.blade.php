@@ -36,7 +36,7 @@
                     <img class="img-responsive img-rounded w-50 card-img-top getImg" src="files/upload/{{$p->slug}}">
 
                     <p class="h5 text-center w-50 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
-                    <div class="jumbotron w-50 mt-3" style="margin-left: auto;margin-right: auto">
+                    <div class="jumbotron w-50 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
                         <div id="current-comment"></div>
                         <?php $i = 0; ?>
                         @foreach($p->comments as $c)
