@@ -116,7 +116,6 @@ class AjaxController
     public function commentAction(Request $request){
         $target = $request->get('target');
         $content = $request->get('content');
-
         $comment = new Comments();
         $comment = DB::table('comments')->insertGetId(['content' => $content,'created_at' => new \DateTime()],'id');
 
@@ -124,7 +123,6 @@ class AjaxController
         $photo->photo = $target;
         $photo->comment = $comment;
         $photo->save();
-
 
         $user = new UserHasComments();
         $user->user = Auth::id();

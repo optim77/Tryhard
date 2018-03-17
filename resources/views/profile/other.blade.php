@@ -87,7 +87,7 @@
 
 
                                 @foreach($c->user as $a)
-                                    <div class="text-left">
+                                    <div class="text-left more" style="display: none">
                                         <a class="text-dark" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
                                             <img class="img-responsive" style="width: 50px" src="../files/upload/{{$a->mainPhoto}}">
                                             {{$a->firstName}} {{$a->surname}}

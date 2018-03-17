@@ -29,7 +29,6 @@ class VisitorsController extends Controller
             Visitors::where(['user' => $user,'visitors' => Auth::id()])->update(['created_at' => new \DateTime()]);
 
         }
-        print_r($check);
 
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);

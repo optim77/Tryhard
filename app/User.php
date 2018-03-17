@@ -37,6 +37,10 @@ class User extends Authenticatable
         return $this->belongsToMany('user_has_comments','user','comment')->withTimestamps();
     }
 
+    public function rates(){
+        return $this->belongsToMany('user_has_rates','rates','rate')->withTimestamps();
+    }
+
     public function friends()
     {
         return $this->hasMany(Friends::class, 'user_id1','id');

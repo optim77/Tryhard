@@ -16,7 +16,9 @@ class CreateUserHasRatesTable extends Migration
         Schema::create('user_has_rates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user')->unsigned();
+            $table->integer('rate')->unsigned();
             $table->foreign('user')->references('id')->on('users');
+            $table->foreign('rate')->references('id')->on('rates');
             $table->timestamps();
         });
     }
