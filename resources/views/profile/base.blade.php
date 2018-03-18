@@ -30,6 +30,7 @@
 
 
                 <div class="row">
+                    @if($photos != null)
                     @foreach($photos->photos as $p)
 
 
@@ -112,6 +113,20 @@
 
 
                     @endforeach
+                        @else
+
+
+                        <div class="col-sm-12">
+                            <p class="text-center text-muted h1">
+                                <i class="fas fa-dot-circle"></i><br>
+                                Brak postów</p>
+                            <p class="h5 text-center text-muted">Dodaj znajomych by twoja tablica zakwitła</p>
+                            <div class="text-center mt-4">
+                                <a href="{{route('search')}}" class="btn btn-primary text-white">Szukaj znajomych</a>
+                            </div>
+                        </div>
+
+                        @endif
                 </div>
 
             </div>

@@ -3,7 +3,7 @@
     <div class="container mt-5">
         <div class="row table-bordered p-3 radius">
             <div class="col-sm-3">
-                <img class="img-responsive img-rounded w-100 card-img-top" src="https://static.pexels.com/photos/129459/pexels-photo-129459.jpeg">
+                <img class="img-responsive img-rounded w-100 card-img-top" src="../files/upload/{{$user->mainPhoto}}">
             </div>
             <div class="col-sm-9">
                 <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  {{$user->firstName}} {{$user->surname}}</p>

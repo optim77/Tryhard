@@ -25,10 +25,6 @@ class User extends Controller
      */
     public function index()
     {
-
-//        $user = \App\User::with(['photos'])->where('id','=',Auth::id())->get()->all();
-//        dump($user);
-
         $photos = Friends::with(['user','photos' => function($query) {
             $query->with(['comments' => function($query){
                 $query->with(['user'])->get()->all();
@@ -38,7 +34,7 @@ class User extends Controller
         $visitors = Visitors::where('user','=',Auth::id())->get()->all();
         return view('profile.base',[
             'user' => Auth::user(),
-            'photos' => $photos[0],
+            'photos' => isset($photos[0]) ? $photos[0] : null ,
             'visitors' => $visitors
         ]);
     }
