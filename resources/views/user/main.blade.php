@@ -12,7 +12,7 @@
                     <a class="btn btn-primary " href="{{route('profileSettings')}}"><i class="fas fa-wrench"></i></a>
                 </div>
                 <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  {{$user->firstName}} {{$user->surname}}</p>
-                <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  Pseudonim</p>
+                <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  {{$user->name}}</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-users"></i> {{$user->friends}}</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-star"></i> {{$user->stars}}</p>
                 <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-eye"></i> {{$user->viewers}}</p>

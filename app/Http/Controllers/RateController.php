@@ -16,17 +16,15 @@ class RateController extends Controller
     public function getRate(Request $request){
 
         $photo = $request->get('photo');
-
         $rate = DB::table('rates')->insertGetId(['rate' => 1,'created_at' => new \DateTime()],'id');
         $uhr = new UserHasRate();
         $uhr->user = Auth::id();
         $uhr->rate = $rate;
         $uhr->save();
-
-        $photo = new PhotosHasRate();
-        $photo->photo = $photo;
-        $photo->rate = $rate;
-        $photo->save();
+        $photoHas = new PhotosHasRate();
+        $photoHas->photo = $photo[0];
+        $photoHas->rate = $rate;
+        $photoHas->save();
 
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);

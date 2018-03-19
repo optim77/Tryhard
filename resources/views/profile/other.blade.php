@@ -7,10 +7,10 @@
             </div>
             <div class="col-sm-9">
                 <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  {{$user->firstName}} {{$user->surname}}</p>
-                <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  Pseudonim</p>
-                <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-users"></i> 566</p>
-                <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-star"></i> 4123</p>
-                <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-eye"></i> 32221</p>
+                <p class="text-left align-text-bottom"><i class="fas fa-user"></i>  {{$user->name}}</p>
+                <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-users"></i> {{$user->friends}}</p>
+                <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-star"></i> {{$user->stars}}</p>
+                <p class="text-left align-text-bottom btn btn-danger"><i class="fas fa-eye"></i> {{$user->viewers}}</p>
                 <meta name="csrf-token" content="{{ csrf_token() }}">
 
                     @if($friends != null)

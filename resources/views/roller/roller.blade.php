@@ -26,13 +26,13 @@
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="form-inline d-flex justify-content-center">
                     <label class="radio-inline m-3 radius text-white p-2 bg-primary table-bordered">
-                        <input type="radio" id="women" value="women" name="optradio"><i class="fab fa-medium-m"></i></label>
+                        <input type="radio" id="women" value="women" name="optradio"> M</label>
 
                     <label class="radio-inline m-3 radius text-white p-2 bg-primary table-bordered">
-                        <input type="radio" id="men" value="men" name="optradio">Option 2</label>
+                        <input type="radio" id="men" value="men" name="optradio"> W</label>
 
                     <label class="radio-inline m-3 radius text-white p-2 bg-primary table-bordered">
-                        <input type="radio" id="all" value="all" name="optradio"><i class="fas fa-users h3"></i></label>
+                        <input type="radio" id="all" value="all" name="optradio"> UNI</label>
                 </div>
                 @if(Auth::user()->firstName == null && $user->surname == null)
 

@@ -47,6 +47,8 @@ class AjaxController
         $id = Auth::id();
         $acp = Friends::where(['user_id1' => $id,'user_id2' => $user])->update(['status' => 'accepted']);
         $acp2 = Friends::where(['user_id1' => $user,'user_id2' => $id])->update(['status' => 'accepted']);
+        \App\User::whereId($id)->increment('friends');
+        \App\User::whereId($user)->increment('friends');
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
     }
@@ -75,6 +77,8 @@ class AjaxController
         $id = Auth::id();
         $delete = Friends::where('user_id1',$id)->where('user_id2',$user)->delete();
         $delete = Friends::where('user_id1',$user)->where('user_id2',$id)->delete();
+        \App\User::whereId($id)->decrement('friends');
+        \App\User::whereId($user)->decrement('friends');
         $response = array('code' => 100,'success' => true);
         return new JsonResponse($response);
 

@@ -84,17 +84,17 @@
                                     @if(isset($flag) && $flag != null)
                                         <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
                                     @endif
-
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="btn-group">
-                                                <button class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
-                                                <button class="btn mt-2">0</button>
+
+                                                <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+                                                <button class="btn mt-2">{{count($p->rate)}}</button>
                                             </div>
                                         </div>
                                         <div class="col-sm-2 d-flex justify-content-start">
                                             <div class="btn-group">
-                                                <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
+                                                <button  class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
                                                 <button class="btn mt-2">{{count($p->comments)}}</button>
                                             </div>
                                         </div>

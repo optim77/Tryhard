@@ -25,6 +25,7 @@ class VisitorsController extends Controller
             $visitor->user = $user;
             $visitor->visitors = Auth::id();
             $visitor->save();
+            \App\User::whereId($user)->increment('viewers');
         }else{
             Visitors::where(['user' => $user,'visitors' => Auth::id()])->update(['created_at' => new \DateTime()]);
 

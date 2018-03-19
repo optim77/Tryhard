@@ -63,6 +63,13 @@ class User extends Controller
             $result = \App\User::where('firstName','like','%'.$search.'%')->orWhere('surname','like','%'.$search.'%')->get()->all();
             return view('search.user',['users' => $result]);
         }
+        $friends = \App\User::with(['friends' => function($query){
+            $query->with(['user' => function($query){
+                $query->with(['friends' => function($query){
+                    $query->with(['user'])->get()->all();
+                }])->get()->all();
+            }])->get()->all();
+        }])->where('id','=',Auth::id())->get()->all();
         return view('search.user');
     }
 
