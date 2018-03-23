@@ -70,7 +70,11 @@ class User extends Controller
                 }])->get()->all();
             }])->get()->all();
         }])->where('id','=',Auth::id())->get()->all();
-        return view('search.user');
+        $user = Auth::user();
+        $country = $user->country;
+        $age = $user->birthday;
+        $f2 = DB::table('users')->where('country','=',$country)->orWhere('country','like','%',$country,'%')->orWhere('birthday','=',$age)->skip(1)->limit(2)->get()->all();
+        return view('search.user',['friends' => $friends,'f2' => $f2]);
     }
 
     /*
