@@ -19,9 +19,18 @@
                 <a href="{{route('logout')}}" style="display: none" class="list-group-item profileList">Wyloguj</a>
             </ul>
         </div>
+
+        <div class="d-flex justify-content-center h5 mt-2 ml-4 mr-5">
+            <i class="fas fa-users h4"></i>
+        </div>
+
+        <div id="friendList" class="">
+            
+        </div>
+
     </div>
 </div>
-
+<?php dump($listOfFriends); ?>
 <script>
     $("#profileButton").click(function () {
         $(".profileList").toggle();

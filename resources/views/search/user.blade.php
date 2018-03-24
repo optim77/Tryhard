@@ -36,7 +36,7 @@
             </div>
             <div class="col-sm-12">
                 <p class="h2 text-center mt-5 mb-5">Proponowane osoby</p>
-                
+
                 @foreach($f2 as $f)
 
                     <a class="text-dark" href="{{route('getUserProfile',[$f->firstName,$f->surname,$f->id])}}">
