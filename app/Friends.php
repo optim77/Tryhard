@@ -10,7 +10,7 @@ class Friends extends Model
 
     //STATUS: DONE
     public function user(){
-        return $this->belongsToMany('App\User','friends','user_id1','user_id2','id')->withTimestamps();
+        return $this->hasOne('App\User','id','user_id2');
     }
 
     //STATUS: DONE

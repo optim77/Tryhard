@@ -31,41 +31,43 @@
 
                 <div class="row">
                     @if($photos != null)
-                    @foreach($photos->photos as $p)
 
+                    @foreach($photos as $p)
 
 
                         <div class="col-sm-12 text-center mt-2">
-
-                            @foreach($photos->user as $u)
-                                    <a class="text-dark" href="{{route('getUserProfile',[$u->firstName,$u->surname,$u->id])}}">
-                                        <img class="img-responsive" style="width: 50px" src="files/upload/{{$u->mainPhoto}}">
-                                        <p class="text-center">{{$u->firstName}} {{$u->surname}}</p>
-                                    </a>
-                            @endforeach
-
-                            <a href="{{route('displayPhoto',$p->slug)}}">
-                                <img class="img-thumbnail w-75" src="files/upload/{{$p->slug}}">
-                                <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
+                            <a class="text-dark" href="{{route('getUserProfile',[$p->user->firstName,$p->user->surname,$p->user->id])}}">
+                                <img class="img-responsive" style="width: 50px" src="files/upload/{{$p->user->mainPhoto}}">
+                                <p class="text-center">{{$p->user->firstName}} {{$p->user->surname}}</p>
                             </a>
-                            <p>{{$p->description}}</p>
+                        </div>
+                        @foreach($p->photos as $photo)
+                                <div class="col-sm-12 text-center mt-2">
+                                    <a href="{{route('displayPhoto',$photo->slug)}}">
+                                    <img class="img-thumbnail w-75" src="files/upload/{{$photo->slug}}">
+                                    <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
+                                    </a>
+                                </div>
+
+
+                            <p>{{$photo->description}}</p>
                                 <div class="jumbotron w-75 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
                                     <div id="current-comment"></div>
                                     <?php $i = 0; ?>
-                                    @foreach($p->comments as $c)
+
+                                    @foreach($photo->comments as $c)
                                         <?php $i++ ?>
                                         @if($i <= 2)
-
-                                        @foreach($c->user as $a)
-                                            <div class="text-left">
-                                            <a class="text-dark text-left" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
-                                                <img class="img-responsive" style="width: 50px" src="files/upload/{{$a->mainPhoto}}">
-                                                {{$a->firstName}} {{$a->surname}}
-                                            </a>
-                                            </div>
-                                                <p class="text-left mt-2 ml-2">{{$c->content}}</p>
-                                                <hr>
-                                        @endforeach
+                                            @foreach($c->user as $a)
+                                                <div class="text-left">
+                                                <a class="text-dark text-left" href="{{route('getUserProfile',[$a->firstName,$a->surname,$a->id])}}">
+                                                    <img class="img-responsive" style="width: 50px" src="files/upload/{{$a->mainPhoto}}">
+                                                    {{$a->firstName}} {{$a->surname}}
+                                                </a>
+                                                </div>
+                                                        <p class="text-left mt-2 ml-2">{{$c->content}}</p>
+                                                        <hr>
+                                            @endforeach
                                         @else
 
                                             @foreach($c->user as $a)
@@ -84,6 +86,7 @@
                                     @if(isset($flag) && $flag != null)
                                         <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
                                     @endif
+
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="btn-group">
@@ -105,12 +108,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                </div>
+                                    <hr>
+                                </div>
 
-                        </div>
-                            <hr>
-                        </div>
-
-
+                            @endforeach
 
                     @endforeach
                         @else
@@ -127,9 +130,14 @@
                         </div>
 
                         @endif
+            </div>
                 </div>
 
-            </div>
+
+
+
+
+
             <div class="col-sm-2 d-sm-none d-lg-block">
                 <div class="card">
                     <p class="text-center card-header ">Odwiedzający</p>

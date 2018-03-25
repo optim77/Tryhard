@@ -9,6 +9,7 @@
 namespace App\Http\Composers;
 
 
+use App\Friends;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,10 @@ use Illuminate\View\View;
 class FriendsComposer
 {
     public function compose(View $view){
-        $friends = User::with(['friends' => function($query){$query->with(['user'])->get()->all();}])->where('id','=',Auth::id())->get()->all();
+        $friends = DB::table('friends')
+            ->join('users','friends.user_id2','=','users.id')
+            ->select('friends.*','users.*')->where('user_id1',Auth::id())->get()->all();
+
         $view->with('listOfFriends',$friends);
     }
 }

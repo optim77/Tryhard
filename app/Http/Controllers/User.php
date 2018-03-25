@@ -25,16 +25,17 @@ class User extends Controller
      */
     public function index()
     {
-        $photos = Friends::with(['user','photos' => function($query) {
+        $photos = Friends::with(['user'=>function($query){$query->pluck('name');},'photos' => function($query) {
             $query->with(['comments' => function($query){
                 $query->with(['user'])->get()->all();
             },'rate'])->get()->all();
         }
         ])->where('user_id1','=',Auth::id())->get()->all();
+        dump($photos);
         $visitors = Visitors::where('user','=',Auth::id())->get()->all();
         return view('profile.base',[
             'user' => Auth::user(),
-            'photos' => isset($photos[0]) ? $photos[0] : null ,
+            'photos' => isset($photos) ? $photos : null ,
             'visitors' => $visitors
         ]);
     }

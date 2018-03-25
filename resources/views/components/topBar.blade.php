@@ -24,13 +24,21 @@
             <i class="fas fa-users h4"></i>
         </div>
 
-        <div id="friendList" class="">
-            
+        <div id="friendList" class="table-bordered radius" style="position: fixed;right: 0px;top: 50px;width: 15%">
+            <div class="row">
+            @foreach($listOfFriends as $f)
+                    <a class="text-dark col-sm-12" href="{{route('getUserProfile',[$f->firstName,$f->surname,$f->id])}}">
+                        <img class="w-25" src="files/upload/{{$f->mainPhoto}}">
+                        <span class="text-dark ">{{$f->firstName}} {{$f->surname}}</span>
+                    </a>
+
+                @endforeach
+                </div>
         </div>
 
     </div>
 </div>
-<?php dump($listOfFriends); ?>
+
 <script>
     $("#profileButton").click(function () {
         $(".profileList").toggle();
