@@ -42,15 +42,17 @@
                             </a>
                         </div>
                         @foreach($p->photos as $photo)
+
                                 <div class="col-sm-12 text-center mt-2">
                                     <a href="{{route('displayPhoto',$photo->slug)}}">
-                                    <img class="img-thumbnail w-75" src="files/upload/{{$photo->slug}}">
-                                    <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
+                                        <img class="img-thumbnail w-75" src="files/upload/{{$photo->slug}}">
+                                        <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
                                     </a>
+                                    <p class="">{{$photo->description}}</p>
                                 </div>
 
 
-                            <p>{{$photo->description}}</p>
+
                                 <div class="jumbotron w-75 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
                                     <div id="current-comment"></div>
                                     <?php $i = 0; ?>
@@ -67,6 +69,7 @@
                                                 </div>
                                                         <p class="text-left mt-2 ml-2">{{$c->content}}</p>
                                                         <hr>
+
                                             @endforeach
                                         @else
 
@@ -82,36 +85,37 @@
                                             @endforeach
                                                 <?php $flag = 'hide' ?>
                                             @endif
+
                                     @endforeach
                                     @if(isset($flag) && $flag != null)
                                         <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
                                     @endif
-
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="btn-group">
 
-                                                <button onclick="like({{$p->id}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
-                                                <button class="btn mt-2">{{count($p->rate)}}</button>
+                                                <button onclick="like({{$photo->id}})" class="btn btn-primary mt-2"><i class="fas fa-star"></i></button>
+
+                                                <button class="btn mt-2">{{count($photo->rate)}}</button>
                                             </div>
                                         </div>
                                         <div class="col-sm-2 d-flex justify-content-start">
                                             <div class="btn-group">
                                                 <button  class="btn btn-primary mt-2"><i class="fas fa-comments"></i></button>
-                                                <button class="btn mt-2">{{count($p->comments)}}</button>
+                                                <button class="btn mt-2">{{count($photo->comments)}}</button>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-inline mt-5 d-flex justify-content-start">
                                                 <textarea id="commentContext" class="form-control mr-1 ml-sm-12 ml-lg-0 w-100"rows="1"></textarea>
-                                                <input onclick="comment({{$p->id}},$(this).prev('#commentContext').val())" type="button" class="btn btn-primary mt-2" value="Wyślij">
+                                                <input onclick="comment({{$photo->id}},$(this).prev('#commentContext').val())" type="button" class="btn btn-primary mt-2" value="Wyślij">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>
-                                    <hr>
-                                </div>
+
+
+
 
                             @endforeach
 
@@ -142,6 +146,12 @@
                 <div class="card">
                     <p class="text-center card-header ">Odwiedzający</p>
                     <div class="card-body">
+                        @if($visitors == null)
+
+                                <p class="text-muted text-center">Brak odwiedzających</p>
+                                <p class="text-center"><i class=" h3 fas fa-thermometer-empty text-muted"></i></p>
+                                <hr>
+                            @endif
                         @foreach($visitors as $v)
                             <p class="text-center">
                                 <a class="text-dark" href="{{route('getUserProfile',[$v->firstName,$v->surname,$v->id])}}">

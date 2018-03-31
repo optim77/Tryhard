@@ -15,9 +15,9 @@ class Photos extends Model
         return $this->belongsToMany('App\Comments','photos_has_comments','photo','comment','id')->withTimestamps();
     }
 
-//    public function user(){
-//        return $this->belongsToMany(User::class,'user_has_photos','user','photo','id');
-//    }
+    public function user(){
+        return $this->belongsToMany(User::class,'user_has_photos','photo','user','id');
+    }
 
     //OK!!!!!!
     public function rate(){

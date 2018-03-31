@@ -52,3 +52,27 @@ function roll() {
         }
     });
 }
+
+
+    function like(p) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: 'http://localhost/Laravel/Tryhard/Tryhard/public/ocen',
+            type: 'POST',
+            dataType: 'json',
+            data: 'photo='+ p,
+            success: function () {
+                $(this).css('background','#ffffff');
+            }
+        });
+    }
+
+    function showMore() {
+        $(".more").fadeToggle('slow','swing',function () {
+            $("#showMoreBtn").html('Pokaż mniej')
+        });
+    }

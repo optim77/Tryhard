@@ -31,7 +31,6 @@ class User extends Controller
             },'rate'])->get()->all();
         }
         ])->where('user_id1','=',Auth::id())->get()->all();
-        dump($photos);
         $visitors = Visitors::where('user','=',Auth::id())->get()->all();
         return view('profile.base',[
             'user' => Auth::user(),
