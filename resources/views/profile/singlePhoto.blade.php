@@ -15,10 +15,11 @@
                             <p class="text-center">{{$p->user[0]->firstName}} {{$p->user[0]->surname}}</p>
                         </a>
                     </div>
-                @foreach($p->comments as $c)
+            <div class="jumbotron w-75 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
+                <div id="current-comment"></div>
+                    @foreach($p->comments as $c)
 
-                    <div class="jumbotron w-75 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
-                        <div id="current-comment"></div>
+
                         <?php $i = 0; ?>
 
                         @foreach($p->comments as $c)
@@ -55,7 +56,12 @@
                         @if(isset($flag) && $flag != null)
                             <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
                         @endif
-                        <div class="row">
+
+
+                    @break
+                    @endforeach
+
+                 <div class="row">
                             <div class="col-sm-2">
                                 <div class="btn-group">
 
@@ -77,9 +83,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @break
-                    @endforeach
+
+                </div>
 
             @endforeach
 
@@ -134,6 +139,7 @@
                 dataType: 'json',
                 data: 'photo='+ p,
                 success: function () {
+                    $(this).addClass('alert alert-success');
                     $(this).css('background','#ffffff');
                 }
             });
