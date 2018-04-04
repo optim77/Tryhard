@@ -27,20 +27,30 @@
         <div id="friendList" class="table-bordered radius" style="position: fixed;right: 0px;top: 50px;width: 15%">
             <div class="row">
             @foreach($listOfFriends as $f)
-                    <a class="text-dark col-sm-12" href="{{route('getUserProfile',[$f->firstName,$f->surname,$f->id])}}">
+                    <button onclick="gochat({{$f->id}})" class="text-dark col-sm-12 friend btn text-left pt-0 pb-0 pl-1">
                         <img class="w-25" src="files/upload/{{$f->mainPhoto}}">
                         <span class="text-dark ">{{$f->firstName}} {{$f->surname}}</span>
-                    </a>
+                    </button>
 
                 @endforeach
                 </div>
         </div>
 
     </div>
+
+    <div class="" style="position: fixed;right: 20%; bottom: 0px" id="chatfield"></div>
 </div>
 
 <script>
     $("#profileButton").click(function () {
         $(".profileList").toggle();
     })
+
+
+    function gochat(i) {
+        $("#chatfield").append("<div class='alert text-danger'>Hello</div>")
+        $(document).append('<div class=" btn btn-danger bg-danger">asddsads</div>');
+    }
+
+
 </script>

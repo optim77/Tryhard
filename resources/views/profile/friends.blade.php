@@ -11,7 +11,7 @@
                 <div class="card col-sm text-center m-3">
                     <div class="card-body">
                         <a class="text-dark" href="{{route('getUserProfile',[$f->firstName,$f->surname,$f->id])}}">
-                        <img class="img-responsive w-50 card-img" src="https://static.pexels.com/photos/572937/pexels-photo-572937.jpeg">
+                        <img class="img-responsive w-50 card-img" src="files/upload/{{$f->mainPhoto}}">
                         <p class="card-text h4">{{$f->firstName}}  {{$f->surname}}</p>
                         </a>
                     </div>

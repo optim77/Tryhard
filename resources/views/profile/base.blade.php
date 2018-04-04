@@ -87,9 +87,11 @@
                                             @endif
 
                                     @endforeach
-                                    @if(isset($flag) && $flag != null)
+
+                                    @if(isset($flag) && $flag == 'hide')
                                         <button onclick="showMore()" type="button" aria-label="Pokaż więcej" id="showMoreBtn" class="btn btn-primary w-100 mb-3">Pokaż więcej</button>
                                     @endif
+
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="btn-group">
