@@ -83,3 +83,6 @@ Route::post('/unlike','RateController@unlike')->name('unlike');
 
 //DISPLAY SINGLE PHOTO
 Route::match(['get','post'],'/zdjecie/{photo}','PhotosController@displayPhoto')->name('displayPhoto');
+
+//DISPLAY PAGE WITH CHAT
+Route::match(['get','post'],'/chat','ChatController@baseChat')->name('baseChat');
