@@ -63,6 +63,7 @@ Route::post('/ajax/blockFriends','AjaxController@blockUser')->name('AJAXBLOCKUSE
 Route::post('/ajax/unlockFriends','AjaxController@unlockFriends')->name('AJAXUNLOCK');
 Route::post('/ajax/commentAction','AjaxController@commentAction')->name('AJAXCOMMENT');
 Route::post('/ajax/setProfileImage','AjaxController@setProfileImage')->name('AJAXSETIMAGE');
+Route::post('/ajax/getConversation','ConversationsController@getConversation')->name('getConversation');
 
 //SHOW FRIENDS PAGE
 Route::get('/znajomi','User@getFriends')->name('getFriends');
