@@ -61,10 +61,11 @@
         @foreach($photos->photos as $p)
 
             <div class="col-sm-12 mt-5" >
-                <img class="img-responsive img-rounded w-25 card-img-top" src="../files/upload/{{$p->slug}}">
+                <a href="{{route('displayPhoto',$p->slug)}}">
+                    <img class="img-responsive img-rounded w-25 card-img-top" src="../files/upload/{{$p->slug}}">
 
-                <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
-
+                    <p class="h5 text-center w-25 mt-2" style="margin-left: auto;margin-right: auto">{{$p->description}}</p>
+                </a>
                 <div class="jumbotron w-25 mt-3" id="comments" style="margin-left: auto;margin-right: auto">
                     <div id="current-comment"></div>
                     <?php $i = 0; ?>

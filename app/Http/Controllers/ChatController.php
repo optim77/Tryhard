@@ -14,7 +14,6 @@ class ChatController extends Controller
         $friends = DB::table('friends')
             ->join('users','friends.user_id2','=','users.id')
             ->select('friends.*','users.name','users.firstName','users.surname','users.mainPhoto','users.id')->where('user_id1',Auth::id())->get()->all();
-        //dump($friends);
         return view('chat.chatroom',[
             'friends' => $friends
         ]);

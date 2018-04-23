@@ -35,43 +35,87 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
 
+
+
         function choose(i,n,s) {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+                openWindow = true;
 
-            $.ajax({
-                url: '{{route('getConversation')}}',
-                type: 'POST',
-                dataType: 'json',
-                data: 'user=' + i,
-                success: function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
 
-                }
-            });
-            id = i;
-            user = {{\Illuminate\Support\Facades\Auth::id()}}
-            $("#chatplace").empty();
-            $("#chatplace").append('<div class="">' +
-                '<span class="text-center border-bottom w-100">'+n +'  '+ s +'</span>' +
-                '<div class="col-sm-12" style="height:400px"></div><div class="">' +
-                '<textarea id="textarea" class="form-control"></textarea><button onclick="send(id,user)" class="btn btn-info mt-1">Wyślij</button></div></div>')
+                $.ajax({
+                    url: '{{route('getConversation')}}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: 'user=' + i,
+                    success: function (e) {
+
+                        $("#chatplace").empty().append('<div class="">' +
+                            '<span class="text-center border-bottom w-100">'+n +'  '+ s +'</span>' +
+                            '<div id="display-messages" class="col-sm-12" style="height:400px;overflow: auto;padding: 12"></div><div class="">' +
+                            '<textarea id="textArea" class="form-control"></textarea><button data-content="'+id+'" id="sendButton" onclick="send(id.val)" class="btn btn-info mt-1">Wyślij</button></div></div>');
+
+                        let messages = e.conversation[0].file;
+
+
+                        let rawFile = new XMLHttpRequest();
+                        rawFile.open('GET',messages,false);
+                        rawFile.onreadystatechange = function () {
+                            if(rawFile.readyState === 4)
+                            {
+                                if(rawFile.status === 200 || rawFile.status == 0)
+                                {
+                                    let allText = rawFile.responseText;
+                                    let z = allText.search('/user');
+                                    let seed = allText.replace('/user:','');
+                                    if (allText.search('date')){
+                                        allText.replace('','date');
+                                    }
+
+                                    $("#display-messages").append(allText)
+                                }
+                            }
+                        }
+                        rawFile.send(null);
+
+
+//                    function displayContents(contents) {
+//                        $("#display-messages").append(contents)
+//                        //element = document.getElementById('display-messages');
+//                        //element.textContent = contents;
+//                    }
+//
+//                    let reader = new FileReader();
+//                    reader = function (e) {
+//                        let content = e.target.result;
+//                        console.log(messages);
+//                        displayContents(content)
+//                    }
+                    }
+                });
+                id = i;
         }
 
-        function send(i,u) {
-               let text =  $("#textarea").text();
-            $.ajax({
-                url: '{{route('getConversation')}}',
-                type: 'POST',
-                dataType: 'json',
-                data: 'user=' + i + 'text=' + text,
-                success: function () {
-
-                }
-            });
+        function send(u) {
+            id = $("#sendButton").attr('data-content');
+            let text =  $("#textArea").val();
+            console.log(text);
+            if(text !== null){
+                $.ajax({
+                    url: '{{route('getConversation')}}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: 'user=' + id + '&text=' + text,
+                    success: function () {
+                        document.getElementById('textArea').value = '';
+                    }
+                });
+                $("#textArea").text('');
+            }
         }
 
     </script>
