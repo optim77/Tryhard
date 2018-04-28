@@ -25,7 +25,7 @@ class ConversationsController extends Controller
 
             $conv = new Conversations();
             $name = uniqid(false,false);
-            $nameFile = $id.'_'.$user.$name.'.txt';
+            $nameFile = $id.'_'.$user.$name.'.html';
             $file = fopen($nameFile,'w');
             //$file->move('files/conversations');
             move_uploaded_file($file,'public/files');
@@ -41,17 +41,24 @@ class ConversationsController extends Controller
             $file = fopen($conversation[0]->file,"a");
             $date = new \DateTime();
             $date = $date->format('y:m:d h:i:s');
-            if ($conversation[0]->user_id1 == Auth::id()){
-                //user is author
-            }elseif ($conversation[0]->user_id2 == Auth::id()){
+            $message = $request->get('text');
+            $mess = filter_var($message,FILTER_SANITIZE_EMAIL);
 
-            }
             if (!$request->get('text') == null){
 
-                $text = $request->get('text').'  /user: '.Auth::id();
-                $content =  $text.Auth::id();
-                fwrite($file,$text);
-                fclose($file);
+                if ($conversation[0]->user_id1 == Auth::id()){
+                    $text = '<div class="content-message steamL"  id="'.Auth::id().'">'.$mess.'<p class="d-none">'.date("h : m : s d-m-y").'</p></div>';
+                    $content =  $text.Auth::id();
+                    fwrite($file,$text);
+                    fclose($file);
+                }elseif ($conversation[0]->user_id2 == Auth::id()){
+                    $text = '<div class="content-message steamR"  id="'.Auth::id().'">'.$mess.'<p class="d-none">'.date("h : m : s d-m-y").'</p></div>';
+                    $content =  $text.Auth::id();
+                    fwrite($file,$text);
+                    fclose($file);
+                }
+
+
             }
             Conversations::where('user_id1',$user)->where('user_id2',$id)->orWhere('user_id1',$id)->where('user_id2',$user)->update(['file' => $conversation[0]->file]);
             $response = array('success' => true,'code' => 100,'conversation' => $conversation);

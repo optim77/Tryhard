@@ -3,7 +3,7 @@
 
     <div class="container mt-5">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <div class="row">
+        <div id="mainChat" class="row">
             <div class="col-sm-3">
                 @foreach($friends as $friend)
 
@@ -17,7 +17,7 @@
             </div>
 
             <div id="chatplace" class="col-sm-6 border-left border-right">
-                <div class="text-center mt5 text-muted h2">
+                <div id="chatWindow" class="text-center mt5 text-muted h2">
                     <i class="fas fa-pencil-alt"></i>
                 </div>
                 <p id="empty" class="text-center mt4 text-muted h4">Zacznij czatować ze znajomymi</p>
@@ -54,7 +54,7 @@
                     data: 'user=' + i,
                     success: function (e) {
 
-                        $("#chatplace").empty().append('<div class="">' +
+                        $("#chatplace").empty().append('<div class="chatWindow">' +
                             '<span class="text-center border-bottom w-100">'+n +'  '+ s +'</span>' +
                             '<div id="display-messages" class="col-sm-12" style="height:400px;overflow: auto;padding: 12"></div><div class="">' +
                             '<textarea id="textArea" class="form-control"></textarea><button data-content="'+id+'" id="sendButton" onclick="send(id.val)" class="btn btn-info mt-1">Wyślij</button></div></div>');
@@ -81,24 +81,15 @@
                             }
                         }
                         rawFile.send(null);
-
-
-//                    function displayContents(contents) {
-//                        $("#display-messages").append(contents)
-//                        //element = document.getElementById('display-messages');
-//                        //element.textContent = contents;
-//                    }
-//
-//                    let reader = new FileReader();
-//                    reader = function (e) {
-//                        let content = e.target.result;
-//                        console.log(messages);
-//                        displayContents(content)
-//                    }
                     }
                 });
                 id = i;
         }
+
+
+        let objDiv = document.getElementById("chatplace");
+        objDiv.scrollTop = objDiv.scrollHeight;
+
 
         function send(u) {
             id = $("#sendButton").attr('data-content');
@@ -114,7 +105,7 @@
                         document.getElementById('textArea').value = '';
                     }
                 });
-                $("#textArea").text('');
+
             }
         }
 
