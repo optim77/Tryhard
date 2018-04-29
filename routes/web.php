@@ -64,6 +64,7 @@ Route::post('/ajax/unlockFriends','AjaxController@unlockFriends')->name('AJAXUNL
 Route::post('/ajax/commentAction','AjaxController@commentAction')->name('AJAXCOMMENT');
 Route::post('/ajax/setProfileImage','AjaxController@setProfileImage')->name('AJAXSETIMAGE');
 Route::post('/ajax/getConversation','ConversationsController@getConversation')->name('getConversation');
+Route::post('/ajax/refreshConversation','ConversationsController@refresh')->name('refreshConversation');
 
 //SHOW FRIENDS PAGE
 Route::get('/znajomi','User@getFriends')->name('getFriends');

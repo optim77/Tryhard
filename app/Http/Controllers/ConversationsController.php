@@ -51,11 +51,15 @@ class ConversationsController extends Controller
                     $content =  $text.Auth::id();
                     fwrite($file,$text);
                     fclose($file);
+                    $response = array('success' => true,'code' => 100,'conversation' => $conversation);
+                    return new JsonResponse($response);
                 }elseif ($conversation[0]->user_id2 == Auth::id()){
                     $text = '<div class="content-message steamR"  id="'.Auth::id().'">'.$mess.'<p class="d-none">'.date("h : m : s d-m-y").'</p></div>';
                     $content =  $text.Auth::id();
                     fwrite($file,$text);
                     fclose($file);
+                    $response = array('success' => true,'code' => 100,'conversation' => $conversation);
+                    return new JsonResponse($response);
                 }
 
 
@@ -64,6 +68,10 @@ class ConversationsController extends Controller
             $response = array('success' => true,'code' => 100,'conversation' => $conversation);
             return new JsonResponse($response);
         }
+
+    }
+
+    public function refresh(Request $request){
 
     }
 

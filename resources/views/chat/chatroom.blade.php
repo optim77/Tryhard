@@ -35,7 +35,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
 
+        function refresh(messages) {
 
+            let rawFile = new XMLHttpRequest();
+            rawFile.open('GET',messages,false);
+            rawFile.onreadystatechange = function () {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        let allText = rawFile.responseText;
+                        $("#display-messages").append(allText)
+                    }
+                }
+            }
+            rawFile.send(null);
+        }
 
         function choose(i,n,s) {
 
@@ -70,13 +85,23 @@
                                 if(rawFile.status === 200 || rawFile.status == 0)
                                 {
                                     let allText = rawFile.responseText;
-                                    let z = allText.search('/user');
-                                    let seed = allText.replace('/user:','');
-                                    if (allText.search('date')){
-                                        allText.replace('','date');
-                                    }
-
-                                    $("#display-messages").append(allText)
+                                    setInterval(function () {
+                                        $("#display-messages").empty();
+                                        let rawFile = new XMLHttpRequest();
+                                        rawFile.open('GET',messages,false);
+                                        rawFile.onreadystatechange = function () {
+                                            if(rawFile.readyState === 4)
+                                            {
+                                                if(rawFile.status === 200 || rawFile.status == 0)
+                                                {
+                                                    let allText = rawFile.responseText;
+                                                    $("#display-messages").append(allText)
+                                                }
+                                            }
+                                        }
+                                        rawFile.send(null);
+                                    },3000);
+                                    //$("#display-messages").append(allText)
                                 }
                             }
                         }
@@ -101,13 +126,35 @@
                     type: 'POST',
                     dataType: 'json',
                     data: 'user=' + id + '&text=' + text,
-                    success: function () {
+                    success: function (e) {
+
+                        $("#display-messages").empty();
+                        let messages = e.conversation[0].file;
+                        let rawFile = new XMLHttpRequest();
+                        rawFile.open('GET',messages,false);
+                        rawFile.onreadystatechange = function () {
+                            if(rawFile.readyState === 4)
+                            {
+                                if(rawFile.status === 200 || rawFile.status == 0)
+                                {
+                                    let allText = rawFile.responseText;
+                                    $("#display-messages").append(allText)
+                                }
+                            }
+                        }
+                        rawFile.send(null);
+
+                        let objDiv = $("#display-messages");
+                        objDiv.scrollTop = objDiv.scrollHeight;
+
                         document.getElementById('textArea').value = '';
                     }
                 });
 
             }
         }
+        
+
 
     </script>
 
