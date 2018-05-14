@@ -20,6 +20,7 @@ class CreateConversationsTable extends Migration
             $table->string('file');
             $table->foreign('user_id1')->references('id')->on('users');
             $table->foreign('user_id2')->references('id')->on('users');
+            $table->text('conversation');
             $table->timestamps();
         });
     }
